@@ -14,7 +14,7 @@ endif
 
 #------------------------------------------------------------------------------
 
-SRC_DIR = src
+SRC_DIR = .
 GEN_DIR = generated
 TOOL_DIR = tools
 SCRIPT_DIR = scripts
@@ -29,7 +29,8 @@ GJAVA = $(addprefix ${GEN_DIR}/, \
 	$(addsuffix Parser.java,    ${GROOTS}) \
 	$(addsuffix Tokenizer.java, ${GROOTS}))
 
-JFILES = $(wildcard ${SRC_DIR}/*.java) ${GJAVA}
+JSOURCES = $(wildcard ${SRC_DIR}/*.java)
+JFILES = ${JSOURCES} ${GJAVA}
 CFILES = ${JFILES:%.java=%.class}
 
 # Grammatrica installation:
@@ -49,8 +50,6 @@ all: ${CFILES} ${JFILES}
 
 #------------------------------------------------------------------------------
 
-MAKELOCAL_FILES = ${filter-out %~, ${wildcard Makelocal*}}
-
 ifneq ("${MAKELOCAL_FILES}","")
 include ${MAKELOCAL_FILES}
 endif
@@ -62,7 +61,10 @@ ${GEN_DIR}/%Constants.java: ${GEN_DIR}/%Analyzer.java;
 ${GEN_DIR}/%Parser.java: ${GEN_DIR}/%Analyzer.java;
 ${GEN_DIR}/%Tokenizer.java: ${GEN_DIR}/%Analyzer.java;
 
-%.class: %.java
+${SRC_DIR}/%.class: ${SRC_DIR}/%.java ${GJAVA:%.java=%.class}
+	${JAVAC} ${JFLAGS} $<
+
+${GEN_DIR}/%.class: ${GEN_DIR}/%.java
 	${JAVAC} ${JFLAGS} $<
 
 test tests: ${CFILES}
