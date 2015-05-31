@@ -61,10 +61,7 @@ ${GEN_DIR}/%Constants.java: ${GEN_DIR}/%Analyzer.java;
 ${GEN_DIR}/%Parser.java: ${GEN_DIR}/%Analyzer.java;
 ${GEN_DIR}/%Tokenizer.java: ${GEN_DIR}/%Analyzer.java;
 
-${SRC_DIR}/%.class: ${SRC_DIR}/%.java ${GJAVA:%.java=%.class}
-	${JAVAC} ${JFLAGS} $<
-
-${GEN_DIR}/%.class: ${GEN_DIR}/%.java
+%.class: %.java ${GJAVA}
 	${JAVAC} ${JFLAGS} $<
 
 test tests: ${CFILES}
