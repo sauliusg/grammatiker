@@ -89,7 +89,7 @@ ${TST_OUT_DIR}/%.out: ${TEST_DIR}/%.sh
 	@test -f $@ || ./$< 2>&1 | tee $@
 	@test -f $@ && touch $@
 
-${TST_OUT_DIR}/%.diff: ${TEST_DIR}/%.sh ${TST_OUT_DIR}/%.out
+${TST_OUT_DIR}/%.diff: ${TEST_DIR}/%.sh ${TST_OUT_DIR}/%.out ${CFILES}
 	@printf "%-30s: " $(notdir $<)
 	@./$< 2>&1 | diff $(word 2,$^) - > $@; \
 	if [ $$? = 0 ]; then echo OK; \
