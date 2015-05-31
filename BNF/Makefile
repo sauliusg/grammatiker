@@ -36,7 +36,7 @@ CFILES = ${JFILES:%.java=%.class}
 # Grammatica installation:
 GRAMMATICA_JAR := $(shell find ${TOOL_DIR}/ -name grammatica\*.jar | sort | head -n 1)
 
-CLASSPATH := $(shell find ${TOOL_DIR}/ -name \*.jar | tr "\n" ":")generated:.:${CLASSPATH}
+CLASSPATH := $(shell find ${TOOL_DIR}/ -name \*.jar | tr "\n" ":")generated:${SRC_DIR}:${CLASSPATH}
 
 export CLASSPATH
 
