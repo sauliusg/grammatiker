@@ -57,9 +57,14 @@ endif
 ${GEN_DIR}/%Analyzer.java: %.grammar
 	java -jar ${GRAMMATICA_JAR} $< --javaoutput $(dir $@)
 
-${GEN_DIR}/%Constants.java: ${GEN_DIR}/%Analyzer.java;
-${GEN_DIR}/%Parser.java: ${GEN_DIR}/%Analyzer.java;
-${GEN_DIR}/%Tokenizer.java: ${GEN_DIR}/%Analyzer.java;
+${GEN_DIR}/%Constants.java: ${GEN_DIR}/%Analyzer.java
+	test -f $@ && touch $@
+
+${GEN_DIR}/%Parser.java: ${GEN_DIR}/%Analyzer.java
+	test -f $@ && touch $@
+
+${GEN_DIR}/%Tokenizer.java: ${GEN_DIR}/%Analyzer.java
+	test -f $@ && touch $@
 
 %.class: %.java ${GJAVA}
 	${JAVAC} ${JFLAGS} $<
