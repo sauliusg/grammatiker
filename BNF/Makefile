@@ -33,7 +33,7 @@ JSOURCES = $(wildcard ${SRC_DIR}/*.java)
 JFILES = ${JSOURCES} ${GJAVA}
 CFILES = ${JFILES:%.java=%.class}
 
-# Grammatrica installation:
+# Grammatica installation:
 GRAMMATICA_JAR := $(shell find ${TOOL_DIR}/ -name grammatica\*.jar | sort | head -n 1)
 
 CLASSPATH := $(shell find ${TOOL_DIR}/ -name \*.jar | tr "\n" ":")generated:${CLASSPATH}
