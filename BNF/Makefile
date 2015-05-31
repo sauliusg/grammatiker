@@ -42,7 +42,7 @@ export CLASSPATH
 
 JAVAC = javac
 
-.PHONY: all clean distclean cleanAll test tests
+.PHONY: all clean distclean cleanAll
 
 .PRECIOUS: ${GEN_DIR}/%.java
 
@@ -69,8 +69,33 @@ ${GEN_DIR}/%Tokenizer.java: ${GEN_DIR}/%Analyzer.java
 %.class: %.java ${GJAVA}
 	${JAVAC} ${JFLAGS} $<
 
-test tests: ${CFILES}
-	set -x; for i in $^; do ./$$i; done
+#------------------------------------------------------------------------------
+# Tests
+
+.PHONY: test tests out output outputs
+
+TEST_DIR     = tests/cases
+TST_OUT_DIR  = tests/outputs
+
+TEST_FILES   = $(wildcard ${TEST_DIR}/*.sh)
+TEST_OUTPUTS = ${TEST_FILES:${TEST_DIR}/%.sh=${TST_OUT_DIR}/%.out}
+TEST_DIFFS   = ${TEST_FILES:${TEST_DIR}/%.sh=${TST_OUT_DIR}/%.diff}
+
+test tests: ${TEST_DIFFS}
+
+out output outputs: ${TEST_OUTPUTS}
+
+${TST_OUT_DIR}/%.out: ${TEST_DIR}/%.sh
+	@test -f $@ || ./$< 2>&1 | tee $@
+	@test -f $@ && touch $@
+
+${TST_OUT_DIR}/%.diff: ${TEST_DIR}/%.sh ${TST_OUT_DIR}/%.out
+	@printf "%-30s: " $(notdir $<)
+	@./$< 2>&1 | diff $(word 2,$^) - > $@; \
+	if [ $$? = 0 ]; then echo OK; \
+	else echo FAILED:; cat $@; fi
+
+#------------------------------------------------------------------------------
 
 clean:
 	rm -f ${CFILES}
