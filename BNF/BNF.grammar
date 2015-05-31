@@ -1,0 +1,26 @@
+//------------------------------------------------------------------------------
+//$Author$
+//$Date$
+//$Revision$
+//$URL$
+//------------------------------------------------------------------------------
+
+%header%
+GRAMMARTYPE = "LL"
+
+%tokens%
+
+LETTER     = <<[a-z]>>
+DIGIT      = <<[0-9]>>
+SPACE      = " "
+TAB        = <<[\t]>>
+NEWLINE    = <<[\n]>>
+VBAR       = "|"
+
+%productions%
+
+BNF = production_list;
+
+production_list = production [ production_list ];
+
+production = LETTER;
