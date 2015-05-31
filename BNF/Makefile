@@ -98,7 +98,8 @@ ${TST_OUT_DIR}/%.diff: ${TEST_DIR}/%.sh ${TST_OUT_DIR}/%.out ${CFILES}
 #------------------------------------------------------------------------------
 
 clean:
-	rm -f ${CFILES}
+	rm -f ${TEST_DIFFS}
 
 distclean cleanAll: clean
+	rm -f ${CFILES}
 	rm -f ${GJAVA}
