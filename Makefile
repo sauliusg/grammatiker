@@ -14,11 +14,11 @@ endif
 
 DIRS  = ${FIRST} ${filter-out ${FIRST}, ${dir ${wildcard */Makefile}}}
 
-.PHONY: all clean cleanAll distclean
+.PHONY: all clean cleanAll distclean test tests
 
 #------------------------------------------------------------------------------
 
-all clean cleanAll distclean:
+all clean cleanAll distclean test tests:
 	@for d in ${DIRS}; do test -d $$d && ${MAKE} -C $$d $@; done
 
 #------------------------------------------------------------------------------
