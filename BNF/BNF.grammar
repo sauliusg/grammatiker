@@ -41,7 +41,7 @@ production =
 expression = list [ [whitespace] "|" [whitespace] expression];
 
 // list = term | term [whitespace] list;
-list = term | term list;
+list = term | term [whitespace] list;
 
 term = literal | rule_name;
 
