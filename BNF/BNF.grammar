@@ -25,18 +25,14 @@ SQSTRING   = <<'[^']'>>
 
 %productions%
 
-BNF = production_list;
+BNF = production_list [whitespace];
 
 production_list = production [ production_list ];
 
-whitespace = whitespace_char [ whitespace ];
-
-whitespace_char = SPACE | TAB | NEWLINE;
-
 production =
-           [whitespace] rule_name [whitespace] 
+           rule_name [whitespace] 
            "::="
-           [whitespace] list [whitespace];
+           [whitespace] list;
 
 expression = list [ [whitespace] "|" [whitespace] expression];
 
@@ -48,3 +44,7 @@ term = literal | rule_name;
 rule_name = "<" WORD ">";
 
 literal = DQSTRING | SQSTRING;
+
+whitespace = whitespace_char [ whitespace ];
+
+whitespace_char = SPACE | TAB | NEWLINE;
