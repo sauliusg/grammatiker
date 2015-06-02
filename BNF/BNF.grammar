@@ -16,6 +16,12 @@ SPACE      = " "
 TAB        = <<[\t]>>
 NEWLINE    = <<[\n]>>
 VBAR       = "|"
+WORD       = <<[a-zA-Z_][-a-zA-Z_0-9]*>>
+LBRACKET   = "<"
+RBRACKET   = ">"
+IS_A       = "::="
+DQSTRING   = <<"[^"]">>
+SQSTRING   = <<'[^']'>>
 
 %productions%
 
@@ -23,4 +29,22 @@ BNF = production_list;
 
 production_list = production [ production_list ];
 
-production = LETTER | NEWLINE;
+whitespace = whitespace_char [ whitespace ];
+
+whitespace_char = SPACE | TAB | NEWLINE;
+
+production =
+           [whitespace] rule_name [whitespace] 
+           "::="
+           [whitespace] list [whitespace];
+
+expression = list ["|" expression];
+
+// list = term | term [whitespace] list;
+list = term | term list;
+
+term = literal | rule_name;
+
+rule_name = "<" WORD ">";
+
+literal = DQSTRING | SQSTRING;
