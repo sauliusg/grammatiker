@@ -12,9 +12,7 @@ GRAMMARTYPE = "LL"
 
 LETTER     = <<[a-z]>>
 DIGIT      = <<[0-9]>>
-SPACE      = " "
-TAB        = <<[\t]>>
-NEWLINE    = <<[\n]>>
+WHITESPACE = <<[ \n\t]+>> %ignore%
 VBAR       = "|"
 WORD       = <<[a-zA-Z_][-a-zA-Z_0-9]*>>
 LBRACKET   = "<"
@@ -25,18 +23,17 @@ SQSTRING   = <<'[^']'>>
 
 %productions%
 
-BNF = production_list [whitespace];
+BNF = production_list;
 
 production_list = production [ production_list ];
 
 production =
-           rule_name [whitespace] 
+           rule_name
            "::="
-           [whitespace] list;
+           expression;
 
-expression = list [ [whitespace] "|" [whitespace] expression];
+expression = list [ "|" expression];
 
-// list = term | term [whitespace] list;
 list = term | term list;
 
 term = literal | rule_name;
@@ -44,7 +41,3 @@ term = literal | rule_name;
 rule_name = "<" WORD ">";
 
 literal = DQSTRING | SQSTRING;
-
-whitespace = whitespace_char [ whitespace ];
-
-whitespace_char = SPACE | TAB | NEWLINE;
