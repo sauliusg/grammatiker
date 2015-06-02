@@ -20,12 +20,13 @@ RBRACKET   = ">"
 IS_A       = "::="
 DQSTRING   = <<"[^"]">>
 SQSTRING   = <<'[^']'>>
+SEMICOLON  = ";"
 
 %productions%
 
 BNF = production_list;
 
-production_list = production [ production_list ];
+production_list = production [ ";" production_list ];
 
 production =
            rule_name
