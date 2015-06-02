@@ -18,8 +18,8 @@ WORD       = <<[a-zA-Z_][-a-zA-Z_0-9]*>>
 LBRACKET   = "<"
 RBRACKET   = ">"
 IS_A       = "::="
-DQSTRING   = <<"[^"]">>
-SQSTRING   = <<'[^']'>>
+DQSTRING   = <<"[^"]*">>
+SQSTRING   = <<'[^']*'>>
 SEMICOLON  = ";"
 
 %productions%
