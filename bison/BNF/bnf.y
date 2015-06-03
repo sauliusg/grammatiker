@@ -25,6 +25,7 @@
 
 %%
 
+BNF: __STRING_CONST ;
 
 %%
 
