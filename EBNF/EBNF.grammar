@@ -226,7 +226,7 @@ meta_identifier_character =
     | decimal_digit
     | "-"
     | "_"
-    | space_character
+//    | space_character
     ;
 
 // see 4.19
@@ -300,11 +300,12 @@ definitions_list =
     {definition_separator_symbol rule_separator* {single_definition}};
 
 single_definition =
-    syntactic_term rule_separator* 
+    syntactic_term rule_separator*
     {concatenate_symbol rule_separator* syntactic_term};
 
 syntactic_term =
-    syntactic_factor [except_symbol syntactic_exception];
+    syntactic_factor rule_separator*
+    [except_symbol rule_separator* syntactic_exception];
 
 // see 4.6
 // syntactic exception
