@@ -20,7 +20,7 @@ decimal_digit = <<[0-9]>> // see 7.2
 
 concatenate_symbol = ","
 defining_symbol = "="
-definition_separator_symbol = <<[}/!]>>
+definition_separator_symbol = <<[|/!]>>
 end_comment_symbol = "*)"
 end_group_symbol = ")"
 end_option_symbol = <<\]|/>>
@@ -273,7 +273,8 @@ bracketed_textual_comment =
 
 rule_separator = comment | gap_separator ;
 
-syntax = rule_separator+ {syntax_rule rule_separator*} ;
+syntax = rule_separator+ {syntax_rule rule_separator*}
+         | syntax_rule rule_separator* {syntax_rule rule_separator*};
 
 syntax_rule =
     meta_identifier defining_symbol definitions_list terminator_symbol;

@@ -1,1 +1,1 @@
-<syntax> ::= <rule>
+syntax=rule;
