@@ -333,13 +333,19 @@ syntactic_primary =
     ;
 
 optional_sequence =
-    start_option_symbol definitions_list end_option_symbol;
+    start_option_symbol rule_separator*
+    definitions_list rule_separator*
+    end_option_symbol rule_separator*;
 
 repeated_sequence =
-    start_repeat_symbol definitions_list end_repeat_symbol;
+    start_repeat_symbol rule_separator*
+    definitions_list rule_separator*
+    end_repeat_symbol rule_separator*;
 
 grouped_sequence =
-    start_group_symbol definitions_list end_group_symbol;
+    start_group_symbol rule_separator*
+    definitions_list rule_separator*
+    end_group_symbol rule_separator*;
 
 // empty_sequence = comment ;
 
