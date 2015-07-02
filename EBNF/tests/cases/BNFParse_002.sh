@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if java BNFParse < tests/inputs/text2.txt
+if java EBNFParse < tests/inputs/text2.txt
 then
     echo OK
 else
