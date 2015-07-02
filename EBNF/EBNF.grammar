@@ -284,7 +284,7 @@ syntax = rule_separator+ {syntax_rule rule_separator*}
          | syntax_rule rule_separator* {syntax_rule rule_separator*};
 
 syntax_rule =
-    meta_identifier rule_separator* 
+    meta_identifier rule_separator*
     defining_symbol rule_separator*
     definitions_list rule_separator* terminator_symbol;
 
@@ -293,7 +293,8 @@ definitions_list =
     {definition_separator_symbol rule_separator* single_definition};
 
 single_definition =
-    syntactic_term {concatenate_symbol syntactic_term};
+    syntactic_term rule_separator* 
+    {concatenate_symbol rule_separator* syntactic_term};
 
 syntactic_term =
     syntactic_factor [except_symbol syntactic_exception];
