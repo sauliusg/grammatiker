@@ -350,7 +350,7 @@ grouped_sequence =
     definitions_list rule_separator*
     end_group_symbol rule_separator*;
 
-// empty_sequence = comment ;
+// empty_sequence = ;
 
 comment = "(*" {comment_symbol} "*)" ;
 
