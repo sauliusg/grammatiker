@@ -40,10 +40,231 @@ other_character = <<[ :+_%@&#$<>\\^`~]>>
 // see 7.6
 space_character= " "
 horizontal_tabulation_character = <<\t>>
-new_line = <<\n>>
+new_line = <<\r*\n\r*>>
+vertical_tabulation_character = <<\v>>
+form_feed = <<\f>>
 
 %productions%
 
 EBNF = syntax;
 
-syntax = start_comment_symbol end_comment_symbol;
+// The second part of the removal of unnecessary from a syntax.
+
+// see 6.2
+terminal_character =
+    letter
+    | decimal_digit
+    | concatenate_symbol
+    | defining_symbol
+    | definition_separator_symbol
+    | end_comment_symbol
+    | end_group_symbol
+    | end_option_symbol
+    | end_repeat_symbol
+    | except_symbol
+    | first_quote_symbol
+    | repetition_symbol
+    | second_quote_symbol
+    | special_sequence_symbol
+    | start_comment_symbol
+    | start_group_symbol
+    | start_option_symbol
+    | start_repeat_symbol
+    | terminator_symbol
+    | other_character ;
+
+// see 6.2
+// gap free symbol =
+//     terminal character - (first quote symbol | second quote symbol)
+gap_free_symbol = 
+    letter
+    | decimal_digit
+    | concatenate_symbol
+    | defining_symbol
+    | definition_separator_symbol
+    | end_comment_symbol
+    | end_group_symbol
+    | end_option_symbol
+    | end_repeat_symbol
+    | except_symbol
+    // | first_quote_symbol
+    | repetition_symbol
+    // | second_quote_symbol
+    | special_sequence_symbol
+    | start_comment_symbol
+    | start_group_symbol
+    | start_option_symbol
+    | start_repeat_symbol
+    | terminator_symbol
+    | other_character ;
+
+// see 4.16
+terminal_string =
+    first_quote_symbol first_terminal_character
+    {first_terminal_character} first_quote_symbol
+    | second_quote_symbol second_terminal_character
+    {second_terminal_character} second_quote_symbol ;
+
+// see 4.17
+// first terminal character = terminal character - first quote symbol
+first_terminal_character =
+    letter
+    | decimal_digit
+    | concatenate_symbol
+    | defining_symbol
+    | definition_separator_symbol
+    | end_comment_symbol
+    | end_group_symbol
+    | end_option_symbol
+    | end_repeat_symbol
+    | except_symbol
+    // | first_quote_symbol
+    | repetition_symbol
+    | second_quote_symbol
+    | special_sequence_symbol
+    | start_comment_symbol
+    | start_group_symbol
+    | start_option_symbol
+    | start_repeat_symbol
+    | terminator_symbol
+    | other_character ;
+    
+
+// see 4.18
+// second terminal character = terminal character - second quote symbol
+second_terminal_character =
+    letter
+    | decimal_digit
+    | concatenate_symbol
+    | defining_symbol
+    | definition_separator_symbol
+    | end_comment_symbol
+    | end_group_symbol
+    | end_option_symbol
+    | end_repeat_symbol
+    | except_symbol
+    | first_quote_symbol
+    | repetition_symbol
+    // | second_quote_symbol
+    | special_sequence_symbol
+    | start_comment_symbol
+    | start_group_symbol
+    | start_option_symbol
+    | start_repeat_symbol
+    | terminator_symbol
+    | other_character ;
+
+// see 6.4
+gap_separator =
+    space_character
+    | horizontal_tabulation_character
+    | new_line
+    | vertical_tabulation_character
+    | form_feed ;
+
+// The third part of the syntax defines removal of
+// bracketed-textual-comments gap-free-symbols that form a syntax.
+
+// see 6.6
+// commentless symbol
+//   = terminal character
+//     - (letter
+//       | decimal digit
+//       | first quote symbol
+//       | second quote symbol
+//       | start comment symbol
+//       | end comment symbol
+//       | special sequence symbol
+//       | other character)
+//   | meta identifier
+//   | integer
+//   | terminal string
+//   | special sequence;
+
+commentless_symbol =
+    // letter
+    // | decimal_digit
+    concatenate_symbol
+    | defining_symbol
+    | definition_separator_symbol
+    // | end_comment_symbol
+    | end_group_symbol
+    | end_option_symbol
+    | end_repeat_symbol
+    | except_symbol
+    // | first_quote_symbol
+    | repetition_symbol
+    // | second_quote_symbol
+    // | special_sequence_symbol
+    // | start_comment_symbol
+    | start_group_symbol
+    | start_option_symbol
+    | start_repeat_symbol
+    | terminator_symbol
+    // | other_character
+
+    | meta_identifier
+    | integer
+    | terminal_string
+    | special_sequence ;
+
+// see 4.9
+integer = decimal_digit {decimal_digit};
+
+// see 4.14
+meta_identifier = letter {meta_identifier_character};
+
+// see 4.15
+meta_identifier_character = letter | decimal_digit;
+
+// see 4.19
+special_sequence =
+    special_sequence_symbol
+    {special_sequence_character}
+    special_sequence_symbol;
+
+// see 4.20
+// special sequence character
+// = terminal character - special sequence symbol;
+special_sequence_character =
+    letter
+    | decimal_digit
+    | concatenate_symbol
+    | defining_symbol
+    | definition_separator_symbol
+    | end_comment_symbol
+    | end_group_symbol
+    | end_option_symbol
+    | end_repeat_symbol
+    | except_symbol
+    | first_quote_symbol
+    | repetition_symbol
+    | second_quote_symbol
+    // | special_sequence_symbol
+    | start_comment_symbol
+    | start_group_symbol
+    | start_option_symbol
+    | start_repeat_symbol
+    | terminator_symbol
+    | other_character ;
+
+// see 6.7
+comment_symbol =
+    bracketed_textual_comment
+    | other_character
+    | commentless_symbol;
+
+// see 6.8
+bracketed_textual_comment =
+    start_comment_symbol {comment_symbol} end_comment_symbol;
+
+// The final abstract structure part of the syntax defines syntax of
+// Extended BNF, i.e.  in terms of the commentless symbols.
+
+syntax = comment ;
+
+comment = "(*" {comment_symbol} "*)";
+
+// !? Duplicate definition -- which one should we take? S.G.:
+// comment_symbol =
+//     comment | terminal_string | special_sequence | character ;
