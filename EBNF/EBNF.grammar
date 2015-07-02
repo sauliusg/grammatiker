@@ -261,9 +261,69 @@ bracketed_textual_comment =
 // The final abstract structure part of the syntax defines syntax of
 // Extended BNF, i.e.  in terms of the commentless symbols.
 
-syntax = comment ;
+// see 6.5
+// syntax = {gap separator}, gap free symbol, {gap separator},
+//          {gap free symbol, {gap separator}};
+//
+// syntax = {bracketed textual comment},
+//          commentless symbol,
+//          {bracketed textual comment},
+//          {commentless symbol,
+//             {bracketed textual comment}},
 
-comment = "(*" {comment_symbol} "*)";
+syntax = syntax_rule {syntax_rule} ;
+
+syntax_rule =
+    meta_identifier defining_symbol definitions_list terminator_symbol;
+
+definitions_list =
+    single_definition
+    {definition_separator_symbol single_definition};
+
+single_definition =
+    syntactic_term {concatenate_symbol syntactic_term};
+
+syntactic_term =
+    syntactic_factor [except_symbol syntactic_exception];
+
+// see 4.6
+// syntactic exception
+// = ? a syntactic-factor that could be replaced by a 
+//     syntactic-factor containing no meta-identifiers
+//   ?
+syntactic_exception = letter; // FIXME make a reasonable lexical definition
+
+syntactic_factor = [integer repetition_symbol] syntactic_primary;
+
+// http://grammatica.percederberg.net/doc/release/manual/productions.html
+//
+// "The EBNF dialect used in Grammatica currently does not allow null
+// (i.e. empty) production alternatives. Instead, the same result can
+// be obtained by making all references to the production optional
+// with the [...] construct or similar."
+
+syntactic_primary =
+    optional_sequence
+    | repeated_sequence
+    | grouped_sequence
+    | meta_identifier
+    | terminal_string
+    | special_sequence
+    // | empty_sequence
+    ;
+
+optional_sequence =
+    start_option_symbol definitions_list end_option_symbol;
+
+repeated_sequence =
+    start_repeat_symbol definitions_list end_repeat_symbol;
+
+grouped_sequence =
+    start_group_symbol definitions_list end_group_symbol;
+
+// empty_sequence = comment ;
+
+comment = "(*" {comment_symbol} "*)" ;
 
 // !? Duplicate definition -- which one should we take? S.G.:
 // comment_symbol =
