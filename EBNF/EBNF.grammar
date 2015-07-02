@@ -271,7 +271,9 @@ bracketed_textual_comment =
 //          {commentless symbol,
 //             {bracketed textual comment}},
 
-syntax = syntax_rule {syntax_rule} ;
+rule_separator = comment | gap_separator ;
+
+syntax = rule_separator+ {syntax_rule rule_separator*} ;
 
 syntax_rule =
     meta_identifier defining_symbol definitions_list terminator_symbol;
