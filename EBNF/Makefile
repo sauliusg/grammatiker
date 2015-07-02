@@ -97,6 +97,14 @@ ${TST_OUT_DIR}/%.diff: ${TEST_DIR}/%.sh ${TST_OUT_DIR}/%.out ${CFILES}
 
 #------------------------------------------------------------------------------
 
+.PHONY: listdiff
+
+listdiff:
+	@find ${TST_OUT_DIR} -name '*.diff' -size +0 \
+	| xargs --no-run-if-empty ls -l
+
+#------------------------------------------------------------------------------
+
 clean:
 	rm -f ${TEST_DIFFS}
 
