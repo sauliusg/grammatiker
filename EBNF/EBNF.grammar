@@ -291,7 +291,7 @@ syntactic_term =
 // = ? a syntactic-factor that could be replaced by a 
 //     syntactic-factor containing no meta-identifiers
 //   ?
-syntactic_exception = letter; // FIXME make a reasonable lexical definition
+syntactic_exception = syntactic_factor ;
 
 syntactic_factor = [integer repetition_symbol] syntactic_primary;
 
