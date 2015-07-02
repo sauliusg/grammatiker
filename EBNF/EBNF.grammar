@@ -286,7 +286,7 @@ syntax = rule_separator+ {syntax_rule rule_separator*}
 syntax_rule =
     meta_identifier rule_separator*
     defining_symbol rule_separator*
-    definitions_list rule_separator* terminator_symbol;
+    [definitions_list rule_separator*] terminator_symbol;
 
 definitions_list =
     single_definition rule_separator*
