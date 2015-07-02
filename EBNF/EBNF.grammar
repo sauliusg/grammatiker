@@ -313,7 +313,10 @@ syntactic_term =
 //   ?
 syntactic_exception = syntactic_factor ;
 
-syntactic_factor = [integer repetition_symbol] syntactic_primary;
+syntactic_factor =
+    [integer rule_separator*
+     repetition_symbol rule_separator*]
+    syntactic_primary;
 
 // http://grammatica.percederberg.net/doc/release/manual/productions.html
 //
