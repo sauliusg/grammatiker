@@ -36,7 +36,7 @@ start_option_symbol = <<\[|\(/>>
 start_repeat_symbol = <<\{|\(:>>
 terminator_symbol = <<;|\.>>
 // see 7.5
-other_character = <<[ :+_%@&#$<>\\^`~]>>
+other_character = <<[:+_%@&#$<>\\^`~]>>
 // see 7.6
 space_character= " "
 horizontal_tabulation_character = <<\t>>
@@ -71,6 +71,7 @@ terminal_character =
     | start_option_symbol
     | start_repeat_symbol
     | terminator_symbol
+    | space_character
     | other_character ;
 
 // see 6.2
@@ -96,6 +97,7 @@ gap_free_symbol =
     | start_option_symbol
     | start_repeat_symbol
     | terminator_symbol
+    | space_character
     | other_character ;
 
 // see 4.16
@@ -127,6 +129,7 @@ first_terminal_character =
     | start_option_symbol
     | start_repeat_symbol
     | terminator_symbol
+    | space_character
     | other_character ;
     
 
@@ -152,6 +155,7 @@ second_terminal_character =
     | start_option_symbol
     | start_repeat_symbol
     | terminator_symbol
+    | space_character
     | other_character ;
 
 // see 6.4
@@ -201,6 +205,7 @@ commentless_symbol =
     | start_option_symbol
     | start_repeat_symbol
     | terminator_symbol
+    // | space_character
     // | other_character
 
     | meta_identifier
@@ -246,11 +251,13 @@ special_sequence_character =
     | start_option_symbol
     | start_repeat_symbol
     | terminator_symbol
+    | space_character
     | other_character ;
 
 // see 6.7
 comment_symbol =
     bracketed_textual_comment
+    | space_character
     | other_character
     | commentless_symbol;
 
@@ -277,11 +284,13 @@ syntax = rule_separator+ {syntax_rule rule_separator*}
          | syntax_rule rule_separator* {syntax_rule rule_separator*};
 
 syntax_rule =
-    meta_identifier defining_symbol definitions_list terminator_symbol;
+    meta_identifier rule_separator* 
+    defining_symbol rule_separator*
+    definitions_list rule_separator* terminator_symbol;
 
 definitions_list =
-    single_definition
-    {definition_separator_symbol single_definition};
+    single_definition rule_separator*
+    {definition_separator_symbol rule_separator* single_definition};
 
 single_definition =
     syntactic_term {concatenate_symbol syntactic_term};
