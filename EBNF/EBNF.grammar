@@ -264,7 +264,7 @@ special_sequence_character =
 // see 6.7
 comment_symbol =
     bracketed_textual_comment
-    | space_character
+    | gap_separator
     | other_character
     | commentless_symbol;
 
