@@ -10,35 +10,40 @@ GRAMMARTYPE = "LL"
 
 %tokens%
 
-LETTER     = <<[a-z]>>
-DIGIT      = <<[0-9]>>
-WHITESPACE = <<[ \n\t]+>> %ignore%
-VBAR       = "|"
-WORD       = <<[a-zA-Z_][-a-zA-Z_0-9]*>>
-LBRACKET   = "<"
-RBRACKET   = ">"
-IS_A       = "::="
-DQSTRING   = <<"[^"]*">>
-SQSTRING   = <<'[^']*'>>
-SEMICOLON  = ";"
+// Grammar of EBNF ISO/IEC 14977 : 1996(E)
+
+letter = <<[a-zA-Z]>> // see 7.2
+decimal_digit = <<[0-9]>> // see 7.2
+
+// The representation of the following terminal-characters is defined
+// in clauses 7.4 and tables 1, 2.
+
+concatenate_symbol = ","
+defining_symbol = "="
+definition_separator_symbol = <<[}/!]>>
+end_comment_symbol = "*)"
+end_group_symbol = ")"
+end_option_symbol = <<\]|/>>
+end_repeat_symbol = <<\}|:\)>>
+except_symbol = "-"
+first_quote_symbol = <<'>>
+repetition_symbol = "*"
+second_quote_symbol = <<">>
+special_sequence_symbol = "?"
+start_comment_symbol = "(*"
+start_group_symbol = "("
+start_option_symbol = <<\[|\(/>>
+start_repeat_symbol = <<\{|\(:>>
+terminator_symbol = <<;|\.>>
+// see 7.5
+other_character = <<[ :+_%@&#$<>\\^`~]>>
+// see 7.6
+space_character= " "
+horizontal_tabulation_character = <<\t>>
+new_line = <<\n>>
 
 %productions%
 
-BNF = production_list;
+EBNF = syntax;
 
-production_list = production [ ";" production_list ];
-
-production =
-           rule_name
-           "::="
-           expression;
-
-expression = list [ "|" expression];
-
-list = term | term list;
-
-term = literal | rule_name;
-
-rule_name = "<" WORD ">";
-
-literal = DQSTRING | SQSTRING;
+syntax = start_comment_symbol end_comment_symbol;
