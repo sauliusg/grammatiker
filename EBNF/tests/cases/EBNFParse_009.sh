@@ -7,12 +7,12 @@ syntax = rule | rule,syntax;
 rule   = optwhitespace, "<", rulename, ">", optwhitespace,
          "::=",
          optwhitespace, expression, lineend;
-optwhitespace=" ",optwhitespace|" ";
-expression=list|list,"|",expression;
-lineend=optwhitespace,EOL|lineend,lineend;
-list=term|term,optwhitespace,list;
-term=literal|"<",rulename,">";
-literal='"',text,'"'|"'",text,"'";
+optwhitespace = " ", optwhitespace | " " ;
+expression    = list | list, "|", expression ;
+lineend       = optwhitespace, EOL | lineend, lineend;
+list          = term | term, optwhitespace, list;
+term          = literal | "<", rulename, ">";
+literal       = '"', text, '"' | "'", text, "'";
 
 EOF
 then
