@@ -26,6 +26,7 @@ end_group_symbol = ")"
 end_option_symbol = <<\]|/>>
 end_repeat_symbol = <<\}|:\)>>
 except_symbol = "-"
+underscore = "_"
 first_quote_symbol = <<'>>
 repetition_symbol = "*"
 second_quote_symbol = <<">>
@@ -220,7 +221,13 @@ integer = decimal_digit {decimal_digit};
 meta_identifier = letter {meta_identifier_character};
 
 // see 4.15
-meta_identifier_character = letter | decimal_digit;
+meta_identifier_character = 
+    letter
+    | decimal_digit
+    | "-"
+    | "_"
+    | space_character
+    ;
 
 // see 4.19
 special_sequence =
