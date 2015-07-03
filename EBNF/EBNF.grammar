@@ -210,6 +210,16 @@ commentless_symbol =
 
     | meta_identifier
     | integer
+    // S.G.:
+    // To accommodate single apostrophes, question marks
+    // and unbalanced quotes in comments, I had to remove the
+    // following two syntactic elements (' terminal_string' 
+    // and 'special_sequence') from the 'commentless_symbol'
+    // definition, and to add the corresponding characters
+    // (', " and ?) to the 'comment_symbol' definition. This
+    // may be formally against the EBNF grammar as presented
+    // in the ISO/IEC 14977 : 1996(E) standard, but this is
+    // that most people will expect.
     // | terminal_string
     // | special_sequence
     ;
