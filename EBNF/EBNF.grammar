@@ -311,7 +311,7 @@ syntax_rule =
 definitions_list =
     single_definition rule_separator*
     {definition_separator_symbol rule_separator* {single_definition}}
-    | definition_separator_symbol rule_separator* {single_definition};
+    | definition_separator_symbol rule_separator* {definitions_list};
 
 single_definition =
     syntactic_term rule_separator*
