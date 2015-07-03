@@ -1,0 +1,27 @@
+#! /bin/sh
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+
+# Run a Grammatica-based EBNF parser and report syntax errors. Return
+# 0 on success, error code on failure.
+
+# USAGE:
+#    $0 < input-ebnf.txt
+
+SCRPDIR=$(dirname $0)
+BASEDIR=$(dirname ${SCRPDIR})
+
+GRAMMATICA_JAR=$(find "${BASEDIR}/" "${BASEDIR}/tools/" -name "grammatica*.jar" | head -1)
+
+CLASSPATH=\
+${BASEDIR}\
+:${BASEDIR}/generated\
+:${BASEDIR}/lib/grammatiker\
+:${GRAMMATICA_JAR}\
+:$CLASSPATH 
+
+cat ${1+"$@"} | java EBNFParse
