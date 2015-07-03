@@ -210,7 +210,7 @@ commentless_symbol =
 
     | meta_identifier
     | integer
-    | terminal_string
+    // | terminal_string
     | special_sequence ;
 
 // see 4.9
@@ -265,6 +265,8 @@ comment_symbol =
     bracketed_textual_comment
     | gap_separator
     | other_character
+    | first_quote_symbol
+    | second_quote_symbol
     | commentless_symbol;
 
 // see 6.8
