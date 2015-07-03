@@ -211,7 +211,8 @@ commentless_symbol =
     | meta_identifier
     | integer
     // | terminal_string
-    | special_sequence ;
+    // | special_sequence
+    ;
 
 // see 4.9
 integer = decimal_digit {decimal_digit};
@@ -267,6 +268,7 @@ comment_symbol =
     | other_character
     | first_quote_symbol
     | second_quote_symbol
+    | special_sequence_symbol
     | commentless_symbol;
 
 // see 6.8
