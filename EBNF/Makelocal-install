@@ -19,4 +19,5 @@ LIBDIR = ${PREFIX}/lib/${PKGNAME}
 install: ${TARGET}
 	mkdir -p ${BINDIR} ${LIBDIR} ${RC_DIR}
 	cp -av ${SCRIPT_DIR}/* ${BINDIR}
-	find ${LIBDIR} -name '*.class' | xargs -i cp -v {} ${LIBDIR}
+	find . -name '*.class' | xargs -i cp -v {} ${LIBDIR}
+	find tools/ -name grammatica\*.jar | xargs -i cp -v {} ${LIBDIR}
