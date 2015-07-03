@@ -50,6 +50,10 @@ all: ${CFILES} ${JFILES}
 
 #------------------------------------------------------------------------------
 
+#------------------------------------------------------------------------------
+
+MAKELOCAL_FILES = ${filter-out %~, ${wildcard Makelocal*}}
+
 ifneq ("${MAKELOCAL_FILES}","")
 include ${MAKELOCAL_FILES}
 endif

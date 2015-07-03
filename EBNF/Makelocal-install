@@ -1,0 +1,22 @@
+# --*- Makefile -*--
+
+SVN_VERSION := $(shell svnversion)
+
+PKGNAME = $(notdir $(shell pwd | awk '{print tolower($$0)}'))
+
+SCRIPT_DIR = scripts
+
+INSTALL_DIR ?= ${HOME}/install/${PKGNAME}
+PREFIX ?= ${INSTALL_DIR}/${PKGNAME}-r${SVN_VERSION}
+
+BINDIR = ${PREFIX}/bin
+LIBDIR = ${PREFIX}/lib/${PKGNAME}
+## RC_DIR = ${PREFIX}/rc
+## RC_FILE = ${RC_DIR}/${PKGNAME}.rc
+
+.PHONY: install
+
+install: ${TARGET}
+	mkdir -p ${BINDIR} ${LIBDIR} ${RC_DIR}
+	cp -av ${SCRIPT_DIR}/* ${BINDIR}
+	find ${LIBDIR} -name '*.class' | xargs -i cp -v {} ${LIBDIR}

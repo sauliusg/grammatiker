@@ -20,7 +20,7 @@ GRAMMATICA_JAR=$(find "${BASEDIR}/" "${BASEDIR}/tools/" -name "grammatica*.jar" 
 CLASSPATH=\
 ${BASEDIR}\
 :${BASEDIR}/generated\
-:${BASEDIR}/lib/grammatiker\
+:${BASEDIR}/lib/ebnf\
 :${GRAMMATICA_JAR}\
 :$CLASSPATH 
 
