@@ -15,13 +15,24 @@
 SCRPDIR=$(dirname $0)
 BASEDIR=$(dirname ${SCRPDIR})
 
-GRAMMATICA_JAR=$(find "${BASEDIR}/" "${BASEDIR}/tools/" -name "grammatica*.jar" | head -1)
+if [ -d "${BASEDIR}/tools/" ]
+then
+    TOOL_DIR=${BASEDIR}/tools/
+else
+    TOOL_DIR=${BASEDIR}/lib/
+fi
+
+GRAMMATICA_JAR=$(find "${BASEDIR}/" "${TOOL_DIR}/" -name "grammatica*.jar" | head -1)
+
+CLASSPATH=${CLASSPATH:+:$CLASSPATH}
 
 CLASSPATH=\
 ${BASEDIR}\
 :${BASEDIR}/generated\
 :${BASEDIR}/lib/ebnf\
 :${GRAMMATICA_JAR}\
-:$CLASSPATH 
+$CLASSPATH 
+
+export CLASSPATH
 
 cat ${1+"$@"} | java EBNFParse
