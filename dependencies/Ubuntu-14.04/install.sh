@@ -1,6 +1,7 @@
 #! /bin/sh
 
 sudo apt-get install -y ant
+sudo apt-get install -y default-jdk
 
 BASE_DIR=$(dirname $(dirname $(dirname $0)))
 TOOL_DIR=${BASE_DIR}/tools
