@@ -14,7 +14,7 @@
 
 SCRPDIR=$(dirname $0)
 BASEDIR=$(dirname ${SCRPDIR})
-LIB_DIR=${BASEDIR}/lib/ebnf
+LIB_DIR=${BASEDIR}/lib/bnf
 
 if [ -d "${BASEDIR}/tools/" ]
 then
