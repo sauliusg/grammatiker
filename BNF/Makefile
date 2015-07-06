@@ -50,6 +50,10 @@ all: ${CFILES} ${JFILES}
 
 #------------------------------------------------------------------------------
 
+#------------------------------------------------------------------------------
+
+MAKELOCAL_FILES = ${filter-out %~, ${wildcard Makelocal*}}
+
 ifneq ("${MAKELOCAL_FILES}","")
 include ${MAKELOCAL_FILES}
 endif
@@ -94,6 +98,14 @@ ${TST_OUT_DIR}/%.diff: ${TEST_DIR}/%.sh ${TST_OUT_DIR}/%.out ${CFILES}
 	@./$< 2>&1 | diff $(word 2,$^) - > $@; \
 	if [ $$? = 0 ]; then echo OK; \
 	else echo FAILED:; cat $@; fi
+
+#------------------------------------------------------------------------------
+
+.PHONY: listdiff
+
+listdiff:
+	@find ${TST_OUT_DIR} -name '*.diff' -size +0 \
+	| xargs --no-run-if-empty ls -l
 
 #------------------------------------------------------------------------------
 
