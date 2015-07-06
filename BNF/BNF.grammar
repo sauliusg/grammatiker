@@ -21,6 +21,8 @@ IS_A       = "::="
 DQSTRING   = <<"[^"]*">>
 SQSTRING   = <<'[^']*'>>
 SEMICOLON  = ";"
+COMMENT1   = <<#.*>> %ignore%
+COMMENT2   = <<//.*>> %ignore%
 
 %productions%
 
