@@ -2,4 +2,6 @@ Parsing BNF...
 Entering the 'BNF' node.
 Procesisng children of the 'BNF' node.
 Reduced the 'BNF' node.
+children_count = 1
+child = production_list(2002)
 OK
