@@ -14,8 +14,6 @@ class BNF2Grammatica {
     public static void main( String [] args )
         throws ParserCreationException, ParserLogException {
 
-        System.out.println( "Parsing BNF..." );
-
 	BNFParser parser = 
 	    new BNFParser( new InputStreamReader( System.in ),
                            new BNF2GrammaticaConverter() );
