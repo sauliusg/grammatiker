@@ -17,7 +17,14 @@ import net.percederberg.grammatica.parser.ParseException;
 
 class BNF2GrammaticaConverter extends BNFAnalyzer {
 
-    private HashMap<String,Node> tokens = new HashMap<String,Node>();;
+    private int error_count = 0;
+
+    private HashMap<String,Node> tokens = new HashMap<String,Node>();
+
+    private HashMap<String,Node> defined_productions = new HashMap<String,Node>();
+    private HashMap<String,Node> used_productions = new HashMap<String,Node>();
+
+    public int getErrorCount() { return this.error_count; }
 
     protected void enterBnf( Production node ) throws ParseException
     {
@@ -43,9 +50,22 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
     protected Node exitRuleName( Production node ) throws ParseException
     {
         Token rule_name_token = (Token)node.getChildAt(1);
+        String rule_name;
 
-        rule_name_token.addValue
-            ( rule_name_token.getImage().replace( "-", "_" ));
+        rule_name = rule_name_token.getImage().replace( "-", "_" );
+        rule_name_token.addValue( rule_name );
+        used_productions.put( rule_name, node );
+
+        return node;
+    }
+
+    protected Node exitProduction( Production node ) throws ParseException
+    {
+        Node rule_name_node = node.getChildAt(0);
+        Token rule_name_token = (Token)rule_name_node.getChildAt(1);
+        String rule_name = rule_name_token.getValue(0).toString();
+
+        defined_productions.put( rule_name, node );
 
         return node;
     }
@@ -131,6 +151,23 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
         }
     }
 
+    private void checkDefinedProductions()
+    {
+        String[] productions;
+        Set<String> used_production_set = this.used_productions.keySet();
+        productions = used_production_set.toArray( new String[0] );
+        Arrays.sort( productions );
+
+        for( String production_name : productions ) {
+            if( !defined_productions.containsKey( production_name )) {
+                System.err.println( "ERROR, the grammar uses but does not " +
+                                    "define production '" +
+                                    production_name + "'" );
+                this.error_count ++;
+            }
+        }
+    }
+
     protected Node exitBnf( Production node ) throws ParseException
     {
         System.out.println( "%header%" );
@@ -139,6 +176,7 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
         this.printTokens();
         System.out.println( "\n%productions%" );
         this.printProductions( node, "" );
+        this.checkDefinedProductions();
         return null;
     }
 

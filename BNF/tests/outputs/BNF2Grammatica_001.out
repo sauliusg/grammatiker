@@ -20,4 +20,7 @@ line_end = opt_whitespace EOL | line_end line_end;
 list = term | term opt_whitespace list;
 term = literal | "<" rule_name ">";
 literal = '"' text '"' | "'" text "'";
-// OK
+ERROR, the grammar uses but does not define production 'EOL'
+ERROR, the grammar uses but does not define production 'rule_name'
+ERROR, the grammar uses but does not define production 'text'
+Parse error
