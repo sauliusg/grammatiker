@@ -7,7 +7,6 @@
 
 import java.io.*;
 
-
 import net.percederberg.grammatica.parser.Node;
 import net.percederberg.grammatica.parser.Production;
 import net.percederberg.grammatica.parser.Token;
@@ -26,15 +25,21 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
         super.childBnf( node, child );
     }
 
+    private void printTree( Node node, String prefix )
+    {
+        int children_count = node.getChildCount();
+        // System.out.println( "children_count = " + children_count );
+        for( int i = 0; i < children_count; i++ ) {
+            Node child = node.getChildAt( i );
+            System.out.println( prefix + "child = " + child.toString() );
+            printTree( child, prefix + "   " );
+        }
+    }
+
     protected Node exitBnf( Production node ) throws ParseException
     {
         System.out.println( "Reduced the 'BNF' node." );
-        int children_count = node.getChildCount();
-        System.out.println( "children_count = " + children_count );
-        for( int i = 0; i < children_count; i++ ) {
-            Node child = node.getChildAt( i );
-            System.out.println( "child = " + child.toString() );
-        }
+        this.printTree( node, "" );
         return null;
     }
 
