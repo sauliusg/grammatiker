@@ -1,0 +1,17 @@
+Parse tree from tests/inputs/text1.txt:
+BNF(2001)
+  production_list(2002)
+    production(2003)
+      rule_name(2007)
+        LBRACKET(1006): "<", line: 1, col: 1
+        WORD(1005): "syntax", line: 1, col: 2
+        RBRACKET(1007): ">", line: 1, col: 8
+      IS_A(1008): "::=", line: 1, col: 10
+      expression(2004)
+        list(2005)
+          term(2006)
+            rule_name(2007)
+              LBRACKET(1006): "<", line: 1, col: 14
+              WORD(1005): "rule", line: 1, col: 15
+              RBRACKET(1007): ">", line: 1, col: 19
+OK
