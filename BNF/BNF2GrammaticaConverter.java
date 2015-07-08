@@ -25,13 +25,23 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
         super.childBnf( node, child );
     }
 
+    protected Node exitRuleName( Production node ) throws ParseException
+    {
+        Token rule_name_token = (Token)node.getChildAt(1);
+
+        rule_name_token.addValue
+            ( rule_name_token.getImage().replace( "-", "_" ));
+
+        return node;
+    }
+
     private void printTerm( Node node )
     {
         Node term_def = node.getChildAt( 0 );
 
         if( term_def.getName().equals( "rule_name" )) {
             Token rule_name_token = (Token)term_def.getChildAt( 1 );
-            System.out.print( rule_name_token.getImage() );
+            System.out.print( rule_name_token.getValue(0) );
         } else
         if( term_def.getName().equals( "literal" )) {
             Token rule_name_token = (Token)term_def.getChildAt( 0 );
@@ -71,7 +81,7 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
         Node rule_name_node = node.getChildAt(0);
         Token rule_name_token = (Token)rule_name_node.getChildAt(1);
 
-        System.out.print( rule_name_token.getImage() + " = " );
+        System.out.print( rule_name_token.getValue(0) + " = " );
 
         printExpression( rule_expr );
 
