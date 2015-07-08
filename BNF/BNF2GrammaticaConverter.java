@@ -75,7 +75,7 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
 
         printExpression( rule_expr );
 
-        System.out.println( "" );
+        System.out.println( ";" );
     }
 
     private void printProductions( Node node, String prefix )
