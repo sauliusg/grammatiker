@@ -2,6 +2,14 @@
 GRAMMARTYPE = "LL"
 
 %tokens%
+TOKEN_0 = " "
+TOKEN_1 = ""
+TOKEN_2 = "'"
+TOKEN_3 = "::="
+TOKEN_4 = "<"
+TOKEN_5 = ">"
+TOKEN_6 = "|"
+TOKEN_7 = '"'
 
 %productions%
 syntax = rule | rule syntax;

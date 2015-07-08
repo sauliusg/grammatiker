@@ -6,6 +6,9 @@
 //------------------------------------------------------------------------------
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Arrays;
 
 import net.percederberg.grammatica.parser.Node;
 import net.percederberg.grammatica.parser.Production;
@@ -13,6 +16,8 @@ import net.percederberg.grammatica.parser.Token;
 import net.percederberg.grammatica.parser.ParseException;
 
 class BNF2GrammaticaConverter extends BNFAnalyzer {
+
+    private HashMap<String,Node> tokens = new HashMap<String,Node>();;
 
     protected void enterBnf( Production node ) throws ParseException
     {
@@ -23,6 +28,16 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
     {
         // System.out.println( "Procesisng children of the 'BNF' node." );
         super.childBnf( node, child );
+    }
+
+    protected Node exitLiteral( Production node ) throws ParseException
+    {
+        Token token = (Token)node.getChildAt(0);
+        String token_string = token.getImage();
+
+        tokens.put( token_string, token );
+
+        return node;
     }
 
     protected Node exitRuleName( Production node ) throws ParseException
@@ -102,12 +117,26 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
         }
     }
 
+    private void printTokens()
+    {
+        String[] tokens;
+        Set<String> token_set = this.tokens.keySet();
+        tokens = token_set.toArray( new String[0] );
+        Arrays.sort( tokens );
+
+
+        int token_nr = 0;
+        for( String token : tokens ) {
+            System.out.println( "TOKEN_" + token_nr++ + " = " + token );
+        }
+    }
+
     protected Node exitBnf( Production node ) throws ParseException
     {
         System.out.println( "%header%" );
         System.out.println( "GRAMMARTYPE = \"LL\"" );
         System.out.println( "\n%tokens%" );
-        // this.printTokens( node );
+        this.printTokens();
         System.out.println( "\n%productions%" );
         this.printProductions( node, "" );
         return null;
