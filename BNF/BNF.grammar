@@ -23,6 +23,9 @@ SQSTRING   = <<'[^']*'>>
 SEMICOLON  = ";"
 COMMENT    = <<(#|//).*>> %ignore%
 
+ASTERISC = "*"
+PLUS     = "+"
+
 %productions%
 
 BNF = production_list;
@@ -36,7 +39,7 @@ production =
 
 expression = list [ "|" expression];
 
-list = term | term list;
+list = term ["*"|"+"] | term ["*"|"+"] list;
 
 term = literal | rule_name;
 
