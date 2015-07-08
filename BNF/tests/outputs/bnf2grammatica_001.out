@@ -1,0 +1,26 @@
+%header%
+GRAMMARTYPE = "LL"
+
+%tokens%
+TOKEN_0 = " "
+TOKEN_1 = ""
+TOKEN_2 = "'"
+TOKEN_3 = "::="
+TOKEN_4 = "<"
+TOKEN_5 = ">"
+TOKEN_6 = "|"
+TOKEN_7 = '"'
+
+%productions%
+syntax = rule | rule syntax;
+rule = opt_whitespace "<" rule_name ">" opt_whitespace "::=" opt_whitespace expression line_end;
+opt_whitespace = " " opt_whitespace | "";
+expression = list | list "|" expression;
+line_end = opt_whitespace EOL | line_end line_end;
+list = term | term opt_whitespace list;
+term = literal | "<" rule_name ">";
+literal = '"' text '"' | "'" text "'";
+ERROR, the grammar uses but does not define production 'EOL'
+ERROR, the grammar uses but does not define production 'rule_name'
+ERROR, the grammar uses but does not define production 'text'
+Parse error
