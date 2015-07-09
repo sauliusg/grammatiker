@@ -15,8 +15,8 @@ DIGIT      = <<[0-9]>>
 WHITESPACE = <<[ \n\t]+>> %ignore%
 VBAR       = "|"
 WORD       = <<[a-zA-Z_][-a-zA-Z_0-9]*>>
-LBRACKET   = "<"
-RBRACKET   = ">"
+LANGLE     = "<"
+RANGLE     = ">"
 IS_A       = "::="
 DQSTRING   = <<"[^"]*">>
 SQSTRING   = <<'[^']*'>>
@@ -25,6 +25,13 @@ COMMENT    = <<(#|//).*>> %ignore%
 
 ASTERISC = "*"
 PLUS     = "+"
+
+LBRACKET = '['
+RBRACKET = ']'
+LBRACE   = '{'
+RBRACE   = '}'
+LPAREN   = '('
+RPAREN   = ')'
 
 %productions%
 
@@ -39,9 +46,16 @@ production =
 
 expression = list [ "|" expression];
 
-list = term ["*"|"+"] | term ["*"|"+"] list;
+list = term [ list ];
 
-term = literal | rule_name;
+term = literal ["*"|"+"] | group ["*"|"+"] | repeated | optional |
+       rule_name ["*"|"+"];
+
+optional = '[' list ']';
+
+repeated = '{' list '}';
+
+group = '(' list ')';
 
 rule_name = "<" WORD ">";
 
