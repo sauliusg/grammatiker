@@ -1,0 +1,13 @@
+%header%
+GRAMMARTYPE = "LL"
+
+%tokens%
+TOKEN_0 = "B X"
+TOKEN_1 = "C"
+TOKEN_2 = 'A'
+
+%productions%
+syntax = rule1+ [ rule2 ];
+rule1 = 'A'+ { "B X" };
+rule2 = ( rule1 ) [ "C" ];
+OK

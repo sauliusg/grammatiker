@@ -77,13 +77,31 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
         if( term_def.getName().equals( "rule_name" )) {
             Token rule_name_token = (Token)term_def.getChildAt( 1 );
             System.out.print( rule_name_token.getValue(0) );
-        } else
-        if( term_def.getName().equals( "literal" )) {
-            Token rule_name_token = (Token)term_def.getChildAt( 0 );
-            String value = rule_name_token.getImage();
-            System.out.print( value );
         } else {
-            System.out.print( "UNKNOWN-TERM" );
+            String term_name = term_def.getName();
+
+            if( term_name.equals( "literal" )) {
+                Token rule_name_token = (Token)term_def.getChildAt( 0 );
+                String value = rule_name_token.getImage();
+                System.out.print( value );
+            } else if( term_name.equals( "optional" )) {
+                System.out.print( "[ " );
+                Node option_list = term_def.getChildAt( 1 );
+                printTermList( option_list );
+                System.out.print( " ]" );
+            } else if( term_name.equals( "repeated" )) {
+                System.out.print( "{ " );
+                Node option_list = term_def.getChildAt( 1 );
+                printTermList( option_list );
+                System.out.print( " }" );
+            } else if( term_name.equals( "group" )) {
+                System.out.print( "( " );
+                Node option_list = term_def.getChildAt( 1 );
+                printTermList( option_list );
+                System.out.print( " )" );
+            } else {
+                System.out.print( "UNKNOWN-TERM-" + term_name );
+            }
         }
         if( node.getChildCount() > 1 ) {
             Token repetition = (Token)node.getChildAt( 1 );
