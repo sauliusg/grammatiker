@@ -99,7 +99,11 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
             String cn = child.getName();
             if( cn.equals( "first_quote_symbol" ) ||
                 cn.equals( "second_quote_symbol" )) {
-                System.out.println( ((Token)child).getImage() );
+                System.out.print( ((Token)child).getImage() );
+            } else if( cn.equals( "first_terminal_character" ) ||
+                       cn.equals( "second_terminal_character" )) {
+                Token token = (Token)child.getChildAt(0);
+                System.out.print( token.getImage() );
             }
         }
     }
@@ -110,6 +114,22 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
             Node child = node.getChildAt( i );
             if( child.getName().equals( "definitions_list" )) {
                 printDefinitionsList( child );
+            }
+        }
+    }
+
+    private void printSpecial( Node node )
+    {
+        int nchildren = node.getChildCount();
+        for( int i = 0; i < nchildren; i++ ) {
+            Node child = node.getChildAt(i);
+            String cn = child.getName();
+            if( cn.equals( "special_sequence_symbol" )) {
+                System.out.print( "\"" );
+            } else if( cn.equals( "special_sequence_character" )) {
+                Token character = (Token)child.getChildAt(0);
+                String charimage = character.getImage();
+                System.out.print( charimage );
             }
         }
     }
@@ -135,9 +155,7 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
             printSequence( node );
             System.out.print( " )" );
         } else if( name.equals( "special_sequence" )) {
-            System.out.print( "( " );
-            printSequence( node );
-            System.out.print( " )" );
+            printSpecial( node );
         } else {
             System.out.print( "UNKNOWN-TERM-" + node.getName() );
         }
@@ -145,7 +163,7 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
 
     private void printSyntacticFactor( Node node )
     {
-        Boolean reported = false;
+        Boolean reported = true;
         for( int i = 0; i < node.getChildCount(); i ++ ) {
             Node child = node.getChildAt(i);
             if( child.getName().equals( "syntactic_primary" )) {
@@ -168,9 +186,9 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
             if( child.getName().equals( "syntactic_factor" )) {
                 printSyntacticFactor( child );
             } else if( child.getName().equals( "except_symbol" )) {
-                System.err.print( "NOTE, syntactic exceptions " +
-                                  "are not (yet) supported in " +
-                                  "Grammatica" );
+                // System.err.print( "NOTE, syntactic exceptions " +
+                //                   "are not (yet) supported in " +
+                //                   "Grammatica" );
             }
         }
     }
@@ -195,6 +213,9 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
                 printSingleDefinition( child );
             } else if( child.getName().equals( "definitions_list" )) {
                 printDefinitionsList( child );
+            } else if( child.getName().equals
+                       ( "definition_separator_symbol" )) {
+                System.out.print( " | " );
             }
         }
     }
