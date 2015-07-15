@@ -1,0 +1,4 @@
+(* The following grammar rules describe ternary integer numbers: *)
+ternary_number = [sign], digit, {digit};
+digit = "0" | "1" | "2";
+sign = "+" | "-";
