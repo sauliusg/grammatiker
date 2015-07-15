@@ -41,13 +41,27 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
         super.childEbnf( node, child );
     }
 
-    protected Node exitLiteral( Production node ) throws ParseException
+    protected Node exitTerminalString( Production node )
+        throws ParseException
     {
-        Token token = (Token)node.getChildAt(0);
-        String token_string = token.getImage();
-
-        tokens.put( token_string, token );
-
+        String terminal = "";
+        int nchildren = node.getChildCount();
+        for( int i = 0; i < nchildren; i++ ) {
+            Node child = node.getChildAt(i);
+            String cn = child.getName();
+            if( cn.equals( "first_quote_symbol" ) ||
+                cn.equals( "second_quote_symbol" )) {
+                String ch = ((Token)child).getImage();
+                terminal += ch;
+            } else if( cn.equals( "first_terminal_character" ) ||
+                       cn.equals( "second_terminal_character" )) {
+                Token token = (Token)child.getChildAt(0);
+                String ch = token.getImage();
+                terminal += ch;
+            }
+        }
+        node.addValue( terminal );
+        tokens.put( terminal, node );
         return node;
     }
 
@@ -80,6 +94,32 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
         }
     }
 
+    protected Node exitSpecialSequence( Production node )
+    {
+        String special = "";
+        int nchildren = node.getChildCount();
+        for( int i = 0; i < nchildren; i++ ) {
+            Node child = node.getChildAt(i);
+            String cn = child.getName();
+            if( cn.equals( "special_sequence_symbol" )) {
+                special += "\"";
+            } else if( cn.equals( "special_sequence_character" )) {
+                Token character = (Token)child.getChildAt(0);
+                String charimage = character.getImage();
+                if( charimage.equals( "U" )) {
+                    special += "\\";
+                } else if( charimage.equals( "+" )) {
+                    special += "x";
+                } else {
+                    special += charimage;
+                }
+            }
+        }
+        node.addValue( special );
+        tokens.put( special, node );
+        return node;
+    }
+
     protected Node exitSyntaxRule( Production node ) throws ParseException
     {
         Node rule_name_node = node.getChildAt(0);
@@ -93,19 +133,7 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
 
     private void printTerminalString( Node node )
     {
-        int nchildren = node.getChildCount();
-        for( int i = 0; i < nchildren; i++ ) {
-            Node child = node.getChildAt(i);
-            String cn = child.getName();
-            if( cn.equals( "first_quote_symbol" ) ||
-                cn.equals( "second_quote_symbol" )) {
-                System.out.print( ((Token)child).getImage() );
-            } else if( cn.equals( "first_terminal_character" ) ||
-                       cn.equals( "second_terminal_character" )) {
-                Token token = (Token)child.getChildAt(0);
-                System.out.print( token.getImage() );
-            }
-        }
+        System.out.print( node.getValue(0).toString() );
     }
 
     private void printSequence( Node node )
@@ -118,20 +146,9 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
         }
     }
 
-    private void printSpecial( Node node )
+    private void printSpecialSequence( Node node )
     {
-        int nchildren = node.getChildCount();
-        for( int i = 0; i < nchildren; i++ ) {
-            Node child = node.getChildAt(i);
-            String cn = child.getName();
-            if( cn.equals( "special_sequence_symbol" )) {
-                System.out.print( "\"" );
-            } else if( cn.equals( "special_sequence_character" )) {
-                Token character = (Token)child.getChildAt(0);
-                String charimage = character.getImage();
-                System.out.print( charimage );
-            }
-        }
+        System.out.print( node.getValue(0).toString() );
     }
 
     private void printSyntacticPrimary( Node node )
@@ -155,7 +172,7 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
             printSequence( node );
             System.out.print( " )" );
         } else if( name.equals( "special_sequence" )) {
-            printSpecial( node );
+            printSpecialSequence( node );
         } else {
             System.out.print( "UNKNOWN-TERM-" + node.getName() );
         }
