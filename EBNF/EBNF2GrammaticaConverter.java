@@ -18,8 +18,11 @@ import net.percederberg.grammatica.parser.ParseException;
 class EBNF2GrammaticaConverter extends EBNFAnalyzer {
 
     private int error_count = 0;
+    private int last_special = 0;
 
     private HashMap<String,Node> tokens = new HashMap<String,Node>();
+    private HashMap<String,String> toknames =
+        new HashMap<String,String>();
 
     private HashMap<String,Node> defined_productions =
         new HashMap<String,Node>();
@@ -115,12 +118,15 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
     protected Node exitSpecialSequence( Production node )
     {
         String special = "";
+        String brace = "<<";
+
         int nchildren = node.getChildCount();
         for( int i = 0; i < nchildren; i++ ) {
             Node child = node.getChildAt(i);
             String cn = child.getName();
             if( cn.equals( "special_sequence_symbol" )) {
-                special += "\"";
+                special += brace;
+                brace = ">>";
             } else if( cn.equals( "special_sequence_character" )) {
                 Token character = (Token)child.getChildAt(0);
                 String charimage = character.getImage();
@@ -128,13 +134,18 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
                     special += "\\";
                 } else if( charimage.equals( "+" )) {
                     special += "x";
+                } else if( charimage.equals( " " )) {
+                    // skip spaces;
                 } else {
                     special += charimage;
                 }
             }
         }
+        String special_name = "SPECIAL_" + last_special++;
         node.addValue( special );
+        node.addValue( special_name );
         tokens.put( special, node );
+        toknames.put( special, special_name );
         return node;
     }
 
@@ -166,7 +177,7 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
 
     private void printSpecialSequence( Node node )
     {
-        System.out.print( node.getValue(0).toString() );
+        System.out.print( node.getValue(1).toString() );
     }
 
     private void printSyntacticPrimary( Node node )
@@ -313,10 +324,13 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
         tokens = token_set.toArray( new String[0] );
         Arrays.sort( tokens );
 
-
         int token_nr = 0;
         for( String token : tokens ) {
-            System.out.println( "TOKEN_" + token_nr++ + " = " + token );
+            if( toknames.containsKey( token )) {
+                System.out.println( toknames.get( token ) + " = " + token );
+            } else {
+                System.out.println( "TOKEN_" + token_nr++ + " = " + token );
+            }
         }
     }
 

@@ -1,0 +1,16 @@
+%header%
+GRAMMARTYPE = "LL"
+
+%tokens%
+TOKEN_0 = "+"
+TOKEN_1 = "-"
+TOKEN_2 = "0"
+TOKEN_3 = "1"
+SPECIAL_0 = <<\n>>
+
+%productions%
+number = [ sign ] digit { digit } [ newline ];
+sign = "+" | "-";
+digit = "0" | "1";
+newline = SPECIAL_0;
+OK
