@@ -206,6 +206,12 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
                 // System.err.print( "NOTE, syntactic exceptions " +
                 //                   "are not (yet) supported in " +
                 //                   "Grammatica" );
+                System.out.print( " /* - " );
+                for( i++; i < node.getChildCount(); i++ ) {
+                    Node exception_child = node.getChildAt(i);
+                    printSyntacticFactor( exception_child.getChildAt(0) );
+                }
+                System.out.print( " */" );
             }
         }
     }
