@@ -85,7 +85,15 @@ class BNF2GrammaticaConverter extends BNFAnalyzer {
         } else {
             System.out.print( "UNKNOWN-TERM" );
         }
-            
+        if( node.getChildCount() > 1 ) {
+            Token repetition = (Token)node.getChildAt( 1 );
+            String text = repetition.getImage();
+            if( text.equals( "+" ) || text.equals( "*" )) {
+                System.out.print( text );
+            } else {
+                System.out.print( "UNKNOWN-REPETITION_CHAR-" + text );
+            }
+        }
     }
 
     private void printTermList( Node node )
