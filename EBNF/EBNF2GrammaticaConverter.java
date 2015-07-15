@@ -41,6 +41,24 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
         super.childEbnf( node, child );
     }
 
+    protected Node exitInteger( Production node )
+        throws ParseException
+    {
+        String int_image = "";
+
+        for( int i = 0; i < node.getChildCount(); i++ ) {
+            Token child = (Token)node.getChildAt(i);
+            String digit = child.getImage();
+            int_image += digit;
+        }
+
+        int int_value = Integer.parseInt( int_image );
+        node.addValue( int_value );
+        node.addValue( int_image );
+
+        return node;
+    }
+
     protected Node exitTerminalString( Production node )
         throws ParseException
     {
@@ -181,16 +199,31 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
     private void printSyntacticFactor( Node node )
     {
         Boolean reported = true;
+        Boolean comment_started = false;
         for( int i = 0; i < node.getChildCount(); i ++ ) {
             Node child = node.getChildAt(i);
             if( child.getName().equals( "syntactic_primary" )) {
+                if( comment_started ) {
+                    // System.out.print( " */ " );
+                    // System.out.print( "{ " );
+                }
                 printSyntacticPrimary( child.getChildAt(0) );
+                if( comment_started ) {
+                    // System.out.print( " } " );
+                }
+                comment_started = false;
             } else {
                 if( !reported ) {
                     System.err.print( "NOTE, repetition counts " +
                                       "are not (yet) supported in " +
                                       "Grammatica" );
                     reported = true;
+                }
+                if( child.getName().equals( "integer" )) {
+                    // System.out.print( " /* " );
+                    comment_started = true;
+                    System.out.print( (int)child.getValue(0) );
+                    System.out.print( " * " );
                 }
             }
         }
