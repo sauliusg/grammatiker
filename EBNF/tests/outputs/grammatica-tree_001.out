@@ -1,0 +1,763 @@
+Parse tree from tests/inputs/ebnf.txt:
+EBNF(2001)
+  syntax(2017)
+    syntax_rule(2018)
+      meta_identifier(2010)
+        letter(1001): "s", line: 1, col: 1
+        meta_identifier_character(2011)
+          letter(1001): "y", line: 1, col: 2
+        meta_identifier_character(2011)
+          letter(1001): "n", line: 1, col: 3
+        meta_identifier_character(2011)
+          letter(1001): "t", line: 1, col: 4
+        meta_identifier_character(2011)
+          letter(1001): "a", line: 1, col: 5
+        meta_identifier_character(2011)
+          letter(1001): "x", line: 1, col: 6
+      defining_symbol(1004): "=", line: 1, col: 7
+      definitions_list(2019)
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "r", line: 1, col: 8
+                  meta_identifier_character(2011)
+                    letter(1001): "u", line: 1, col: 9
+                  meta_identifier_character(2011)
+                    letter(1001): "l", line: 1, col: 10
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 1, col: 11
+        definition_separator_symbol(1005): "|", line: 1, col: 12
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "r", line: 1, col: 13
+                  meta_identifier_character(2011)
+                    letter(1001): "u", line: 1, col: 14
+                  meta_identifier_character(2011)
+                    letter(1001): "l", line: 1, col: 15
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 1, col: 16
+          concatenate_symbol(1003): ",", line: 1, col: 17
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "s", line: 1, col: 18
+                  meta_identifier_character(2011)
+                    letter(1001): "y", line: 1, col: 19
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 1, col: 20
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 1, col: 21
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 1, col: 22
+                  meta_identifier_character(2011)
+                    letter(1001): "x", line: 1, col: 23
+      terminator_symbol(1019): ";", line: 1, col: 24
+    rule_separator(2016)
+      gap_separator(2007)
+        new_line(1023): "(...)", line: 1, col: 25
+    syntax_rule(2018)
+      meta_identifier(2010)
+        letter(1001): "r", line: 2, col: 1
+        meta_identifier_character(2011)
+          letter(1001): "u", line: 2, col: 2
+        meta_identifier_character(2011)
+          letter(1001): "l", line: 2, col: 3
+        meta_identifier_character(2011)
+          letter(1001): "e", line: 2, col: 4
+      defining_symbol(1004): "=", line: 2, col: 5
+      definitions_list(2019)
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "o", line: 2, col: 6
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 2, col: 7
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 2, col: 8
+                  meta_identifier_character(2011)
+                    letter(1001): "w", line: 2, col: 9
+                  meta_identifier_character(2011)
+                    letter(1001): "h", line: 2, col: 10
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 2, col: 11
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 2, col: 12
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 13
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 2, col: 14
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 2, col: 15
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 2, col: 16
+                  meta_identifier_character(2011)
+                    letter(1001): "c", line: 2, col: 17
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 18
+          concatenate_symbol(1003): ",", line: 2, col: 19
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 2, col: 20
+                  second_terminal_character(2006)
+                    other_character(1020): "<", line: 2, col: 21
+                  second_quote_symbol(1013): """, line: 2, col: 22
+          concatenate_symbol(1003): ",", line: 2, col: 23
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "r", line: 2, col: 24
+                  meta_identifier_character(2011)
+                    letter(1001): "u", line: 2, col: 25
+                  meta_identifier_character(2011)
+                    letter(1001): "l", line: 2, col: 26
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 27
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 2, col: 28
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 2, col: 29
+                  meta_identifier_character(2011)
+                    letter(1001): "m", line: 2, col: 30
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 31
+          concatenate_symbol(1003): ",", line: 2, col: 32
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 2, col: 33
+                  second_terminal_character(2006)
+                    other_character(1020): ">", line: 2, col: 34
+                  second_quote_symbol(1013): """, line: 2, col: 35
+          concatenate_symbol(1003): ",", line: 2, col: 36
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "o", line: 2, col: 37
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 2, col: 38
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 2, col: 39
+                  meta_identifier_character(2011)
+                    letter(1001): "w", line: 2, col: 40
+                  meta_identifier_character(2011)
+                    letter(1001): "h", line: 2, col: 41
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 2, col: 42
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 2, col: 43
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 44
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 2, col: 45
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 2, col: 46
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 2, col: 47
+                  meta_identifier_character(2011)
+                    letter(1001): "c", line: 2, col: 48
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 49
+          concatenate_symbol(1003): ",", line: 2, col: 50
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 2, col: 51
+                  second_terminal_character(2006)
+                    other_character(1020): ":", line: 2, col: 52
+                  second_terminal_character(2006)
+                    other_character(1020): ":", line: 2, col: 53
+                  second_terminal_character(2006)
+                    defining_symbol(1004): "=", line: 2, col: 54
+                  second_quote_symbol(1013): """, line: 2, col: 55
+          concatenate_symbol(1003): ",", line: 2, col: 56
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "o", line: 2, col: 57
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 2, col: 58
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 2, col: 59
+                  meta_identifier_character(2011)
+                    letter(1001): "w", line: 2, col: 60
+                  meta_identifier_character(2011)
+                    letter(1001): "h", line: 2, col: 61
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 2, col: 62
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 2, col: 63
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 64
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 2, col: 65
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 2, col: 66
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 2, col: 67
+                  meta_identifier_character(2011)
+                    letter(1001): "c", line: 2, col: 68
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 69
+          concatenate_symbol(1003): ",", line: 2, col: 70
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "e", line: 2, col: 71
+                  meta_identifier_character(2011)
+                    letter(1001): "x", line: 2, col: 72
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 2, col: 73
+                  meta_identifier_character(2011)
+                    letter(1001): "r", line: 2, col: 74
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 75
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 2, col: 76
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 2, col: 77
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 2, col: 78
+                  meta_identifier_character(2011)
+                    letter(1001): "o", line: 2, col: 79
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 2, col: 80
+          concatenate_symbol(1003): ",", line: 2, col: 81
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "l", line: 2, col: 82
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 2, col: 83
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 2, col: 84
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 85
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 2, col: 86
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 2, col: 87
+                  meta_identifier_character(2011)
+                    letter(1001): "d", line: 2, col: 88
+      terminator_symbol(1019): ";", line: 2, col: 89
+    rule_separator(2016)
+      gap_separator(2007)
+        new_line(1023): "(...)", line: 2, col: 90
+    syntax_rule(2018)
+      meta_identifier(2010)
+        letter(1001): "o", line: 3, col: 1
+        meta_identifier_character(2011)
+          letter(1001): "p", line: 3, col: 2
+        meta_identifier_character(2011)
+          letter(1001): "t", line: 3, col: 3
+        meta_identifier_character(2011)
+          letter(1001): "w", line: 3, col: 4
+        meta_identifier_character(2011)
+          letter(1001): "h", line: 3, col: 5
+        meta_identifier_character(2011)
+          letter(1001): "i", line: 3, col: 6
+        meta_identifier_character(2011)
+          letter(1001): "t", line: 3, col: 7
+        meta_identifier_character(2011)
+          letter(1001): "e", line: 3, col: 8
+        meta_identifier_character(2011)
+          letter(1001): "s", line: 3, col: 9
+        meta_identifier_character(2011)
+          letter(1001): "p", line: 3, col: 10
+        meta_identifier_character(2011)
+          letter(1001): "a", line: 3, col: 11
+        meta_identifier_character(2011)
+          letter(1001): "c", line: 3, col: 12
+        meta_identifier_character(2011)
+          letter(1001): "e", line: 3, col: 13
+      defining_symbol(1004): "=", line: 3, col: 14
+      definitions_list(2019)
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 3, col: 15
+                  second_terminal_character(2006)
+                    space_character(1021): " ", line: 3, col: 16
+                  second_quote_symbol(1013): """, line: 3, col: 17
+          concatenate_symbol(1003): ",", line: 3, col: 18
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "o", line: 3, col: 19
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 3, col: 20
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 3, col: 21
+                  meta_identifier_character(2011)
+                    letter(1001): "w", line: 3, col: 22
+                  meta_identifier_character(2011)
+                    letter(1001): "h", line: 3, col: 23
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 3, col: 24
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 3, col: 25
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 3, col: 26
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 3, col: 27
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 3, col: 28
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 3, col: 29
+                  meta_identifier_character(2011)
+                    letter(1001): "c", line: 3, col: 30
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 3, col: 31
+        definition_separator_symbol(1005): "|", line: 3, col: 32
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 3, col: 33
+                  second_terminal_character(2006)
+                    space_character(1021): " ", line: 3, col: 34
+                  second_quote_symbol(1013): """, line: 3, col: 35
+      terminator_symbol(1019): ";", line: 3, col: 36
+    rule_separator(2016)
+      gap_separator(2007)
+        new_line(1023): "(...)", line: 3, col: 37
+    syntax_rule(2018)
+      meta_identifier(2010)
+        letter(1001): "e", line: 4, col: 1
+        meta_identifier_character(2011)
+          letter(1001): "x", line: 4, col: 2
+        meta_identifier_character(2011)
+          letter(1001): "p", line: 4, col: 3
+        meta_identifier_character(2011)
+          letter(1001): "r", line: 4, col: 4
+        meta_identifier_character(2011)
+          letter(1001): "e", line: 4, col: 5
+        meta_identifier_character(2011)
+          letter(1001): "s", line: 4, col: 6
+        meta_identifier_character(2011)
+          letter(1001): "s", line: 4, col: 7
+        meta_identifier_character(2011)
+          letter(1001): "i", line: 4, col: 8
+        meta_identifier_character(2011)
+          letter(1001): "o", line: 4, col: 9
+        meta_identifier_character(2011)
+          letter(1001): "n", line: 4, col: 10
+      defining_symbol(1004): "=", line: 4, col: 11
+      definitions_list(2019)
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "l", line: 4, col: 12
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 4, col: 13
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 4, col: 14
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 4, col: 15
+        definition_separator_symbol(1005): "|", line: 4, col: 16
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "l", line: 4, col: 17
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 4, col: 18
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 4, col: 19
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 4, col: 20
+          concatenate_symbol(1003): ",", line: 4, col: 21
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 4, col: 22
+                  second_terminal_character(2006)
+                    definition_separator_symbol(1005): "|", line: 4, col: 23
+                  second_quote_symbol(1013): """, line: 4, col: 24
+          concatenate_symbol(1003): ",", line: 4, col: 25
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "e", line: 4, col: 26
+                  meta_identifier_character(2011)
+                    letter(1001): "x", line: 4, col: 27
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 4, col: 28
+                  meta_identifier_character(2011)
+                    letter(1001): "r", line: 4, col: 29
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 4, col: 30
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 4, col: 31
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 4, col: 32
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 4, col: 33
+                  meta_identifier_character(2011)
+                    letter(1001): "o", line: 4, col: 34
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 4, col: 35
+      terminator_symbol(1019): ";", line: 4, col: 36
+    rule_separator(2016)
+      gap_separator(2007)
+        new_line(1023): "(...)", line: 4, col: 37
+    syntax_rule(2018)
+      meta_identifier(2010)
+        letter(1001): "l", line: 5, col: 1
+        meta_identifier_character(2011)
+          letter(1001): "i", line: 5, col: 2
+        meta_identifier_character(2011)
+          letter(1001): "n", line: 5, col: 3
+        meta_identifier_character(2011)
+          letter(1001): "e", line: 5, col: 4
+        meta_identifier_character(2011)
+          letter(1001): "e", line: 5, col: 5
+        meta_identifier_character(2011)
+          letter(1001): "n", line: 5, col: 6
+        meta_identifier_character(2011)
+          letter(1001): "d", line: 5, col: 7
+      defining_symbol(1004): "=", line: 5, col: 8
+      definitions_list(2019)
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "o", line: 5, col: 9
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 5, col: 10
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 5, col: 11
+                  meta_identifier_character(2011)
+                    letter(1001): "w", line: 5, col: 12
+                  meta_identifier_character(2011)
+                    letter(1001): "h", line: 5, col: 13
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 5, col: 14
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 5, col: 15
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 5, col: 16
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 5, col: 17
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 5, col: 18
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 5, col: 19
+                  meta_identifier_character(2011)
+                    letter(1001): "c", line: 5, col: 20
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 5, col: 21
+          concatenate_symbol(1003): ",", line: 5, col: 22
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "E", line: 5, col: 23
+                  meta_identifier_character(2011)
+                    letter(1001): "O", line: 5, col: 24
+                  meta_identifier_character(2011)
+                    letter(1001): "L", line: 5, col: 25
+        definition_separator_symbol(1005): "|", line: 5, col: 26
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "l", line: 5, col: 27
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 5, col: 28
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 5, col: 29
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 5, col: 30
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 5, col: 31
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 5, col: 32
+                  meta_identifier_character(2011)
+                    letter(1001): "d", line: 5, col: 33
+          concatenate_symbol(1003): ",", line: 5, col: 34
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "l", line: 5, col: 35
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 5, col: 36
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 5, col: 37
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 5, col: 38
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 5, col: 39
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 5, col: 40
+                  meta_identifier_character(2011)
+                    letter(1001): "d", line: 5, col: 41
+      terminator_symbol(1019): ";", line: 5, col: 42
+    rule_separator(2016)
+      gap_separator(2007)
+        new_line(1023): "(...)", line: 5, col: 43
+    syntax_rule(2018)
+      meta_identifier(2010)
+        letter(1001): "l", line: 6, col: 1
+        meta_identifier_character(2011)
+          letter(1001): "i", line: 6, col: 2
+        meta_identifier_character(2011)
+          letter(1001): "s", line: 6, col: 3
+        meta_identifier_character(2011)
+          letter(1001): "t", line: 6, col: 4
+      defining_symbol(1004): "=", line: 6, col: 5
+      definitions_list(2019)
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "t", line: 6, col: 6
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 6, col: 7
+                  meta_identifier_character(2011)
+                    letter(1001): "r", line: 6, col: 8
+                  meta_identifier_character(2011)
+                    letter(1001): "m", line: 6, col: 9
+        definition_separator_symbol(1005): "|", line: 6, col: 10
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "t", line: 6, col: 11
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 6, col: 12
+                  meta_identifier_character(2011)
+                    letter(1001): "r", line: 6, col: 13
+                  meta_identifier_character(2011)
+                    letter(1001): "m", line: 6, col: 14
+          concatenate_symbol(1003): ",", line: 6, col: 15
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "o", line: 6, col: 16
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 6, col: 17
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 6, col: 18
+                  meta_identifier_character(2011)
+                    letter(1001): "w", line: 6, col: 19
+                  meta_identifier_character(2011)
+                    letter(1001): "h", line: 6, col: 20
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 6, col: 21
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 6, col: 22
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 6, col: 23
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 6, col: 24
+                  meta_identifier_character(2011)
+                    letter(1001): "p", line: 6, col: 25
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 6, col: 26
+                  meta_identifier_character(2011)
+                    letter(1001): "c", line: 6, col: 27
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 6, col: 28
+          concatenate_symbol(1003): ",", line: 6, col: 29
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "l", line: 6, col: 30
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 6, col: 31
+                  meta_identifier_character(2011)
+                    letter(1001): "s", line: 6, col: 32
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 6, col: 33
+      terminator_symbol(1019): ";", line: 6, col: 34
+    rule_separator(2016)
+      gap_separator(2007)
+        new_line(1023): "(...)", line: 6, col: 35
+    syntax_rule(2018)
+      meta_identifier(2010)
+        letter(1001): "t", line: 7, col: 1
+        meta_identifier_character(2011)
+          letter(1001): "e", line: 7, col: 2
+        meta_identifier_character(2011)
+          letter(1001): "r", line: 7, col: 3
+        meta_identifier_character(2011)
+          letter(1001): "m", line: 7, col: 4
+      defining_symbol(1004): "=", line: 7, col: 5
+      definitions_list(2019)
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "l", line: 7, col: 6
+                  meta_identifier_character(2011)
+                    letter(1001): "i", line: 7, col: 7
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 7, col: 8
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 7, col: 9
+                  meta_identifier_character(2011)
+                    letter(1001): "r", line: 7, col: 10
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 7, col: 11
+                  meta_identifier_character(2011)
+                    letter(1001): "l", line: 7, col: 12
+        definition_separator_symbol(1005): "|", line: 7, col: 13
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 7, col: 14
+                  second_terminal_character(2006)
+                    other_character(1020): "<", line: 7, col: 15
+                  second_quote_symbol(1013): """, line: 7, col: 16
+          concatenate_symbol(1003): ",", line: 7, col: 17
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "r", line: 7, col: 18
+                  meta_identifier_character(2011)
+                    letter(1001): "u", line: 7, col: 19
+                  meta_identifier_character(2011)
+                    letter(1001): "l", line: 7, col: 20
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 7, col: 21
+                  meta_identifier_character(2011)
+                    letter(1001): "n", line: 7, col: 22
+                  meta_identifier_character(2011)
+                    letter(1001): "a", line: 7, col: 23
+                  meta_identifier_character(2011)
+                    letter(1001): "m", line: 7, col: 24
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 7, col: 25
+          concatenate_symbol(1003): ",", line: 7, col: 26
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 7, col: 27
+                  second_terminal_character(2006)
+                    other_character(1020): ">", line: 7, col: 28
+                  second_quote_symbol(1013): """, line: 7, col: 29
+      terminator_symbol(1019): ";", line: 7, col: 30
+    rule_separator(2016)
+      gap_separator(2007)
+        new_line(1023): "(...)", line: 7, col: 31
+    syntax_rule(2018)
+      meta_identifier(2010)
+        letter(1001): "l", line: 8, col: 1
+        meta_identifier_character(2011)
+          letter(1001): "i", line: 8, col: 2
+        meta_identifier_character(2011)
+          letter(1001): "t", line: 8, col: 3
+        meta_identifier_character(2011)
+          letter(1001): "e", line: 8, col: 4
+        meta_identifier_character(2011)
+          letter(1001): "r", line: 8, col: 5
+        meta_identifier_character(2011)
+          letter(1001): "a", line: 8, col: 6
+        meta_identifier_character(2011)
+          letter(1001): "l", line: 8, col: 7
+      defining_symbol(1004): "=", line: 8, col: 8
+      definitions_list(2019)
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  first_quote_symbol(1011): "'", line: 8, col: 9
+                  first_terminal_character(2005)
+                    second_quote_symbol(1013): """, line: 8, col: 10
+                  first_quote_symbol(1011): "'", line: 8, col: 11
+          concatenate_symbol(1003): ",", line: 8, col: 12
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "t", line: 8, col: 13
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 8, col: 14
+                  meta_identifier_character(2011)
+                    letter(1001): "x", line: 8, col: 15
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 8, col: 16
+          concatenate_symbol(1003): ",", line: 8, col: 17
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  first_quote_symbol(1011): "'", line: 8, col: 18
+                  first_terminal_character(2005)
+                    second_quote_symbol(1013): """, line: 8, col: 19
+                  first_quote_symbol(1011): "'", line: 8, col: 20
+        definition_separator_symbol(1005): "|", line: 8, col: 21
+        single_definition(2020)
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 8, col: 22
+                  second_terminal_character(2006)
+                    first_quote_symbol(1011): "'", line: 8, col: 23
+                  second_quote_symbol(1013): """, line: 8, col: 24
+          concatenate_symbol(1003): ",", line: 8, col: 25
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                meta_identifier(2010)
+                  letter(1001): "t", line: 8, col: 26
+                  meta_identifier_character(2011)
+                    letter(1001): "e", line: 8, col: 27
+                  meta_identifier_character(2011)
+                    letter(1001): "x", line: 8, col: 28
+                  meta_identifier_character(2011)
+                    letter(1001): "t", line: 8, col: 29
+          concatenate_symbol(1003): ",", line: 8, col: 30
+          syntactic_term(2021)
+            syntactic_factor(2023)
+              syntactic_primary(2024)
+                terminal_string(2004)
+                  second_quote_symbol(1013): """, line: 8, col: 31
+                  second_terminal_character(2006)
+                    first_quote_symbol(1011): "'", line: 8, col: 32
+                  second_quote_symbol(1013): """, line: 8, col: 33
+      terminator_symbol(1019): ";", line: 8, col: 34
+    rule_separator(2016)
+      gap_separator(2007)
+        new_line(1023): "(...)", line: 8, col: 35
+OK

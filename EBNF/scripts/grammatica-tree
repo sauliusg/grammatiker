@@ -1,0 +1,43 @@
+#! /bin/sh
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+
+# Run a Grammatica-based BNF parser and report syntax errors. Return
+# 0 on success, error code on failure.
+
+# USAGE:
+#    $0 EBNF.grammatica input-grammar.bnf
+
+SCRPDIR=$(dirname $0)
+BASEDIR=$(dirname ${SCRPDIR})
+LIB_DIR=${BASEDIR}/lib/ebnf
+
+if [ -d "${BASEDIR}/tools/" ]
+then
+    TOOL_DIR=${BASEDIR}/tools
+else
+    TOOL_DIR=${LIB_DIR}
+fi
+
+GRAMMATICA_JAR=$(find "${TOOL_DIR}/" -name "grammatica*.jar" | head -1)
+
+CLASSPATH=${CLASSPATH:+:$CLASSPATH}
+
+CLASSPATH=\
+${GRAMMATICA_JAR}\
+$CLASSPATH 
+
+export CLASSPATH
+
+GRAMMAR="$1"
+
+shift
+
+for FILE in ${1+"$@"}
+do
+    java -jar "${GRAMMATICA_JAR}" "${GRAMMAR}" --parse "${FILE}"
+done
