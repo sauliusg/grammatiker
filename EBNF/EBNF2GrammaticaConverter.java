@@ -51,119 +51,181 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
         return node;
     }
 
-    protected Node exitRuleName( Production node ) throws ParseException
+    protected Node exitMetaIdentifier( Production node ) throws ParseException
     {
-        Token rule_name_token = (Token)node.getChildAt(1);
-        String rule_name;
+        String rule_name = ((Token)node.getChildAt(0)).getImage();
 
-        rule_name = rule_name_token.getImage().replace( "-", "_" );
-        rule_name_token.addValue( rule_name );
-        used_productions.put( rule_name, node );
+        for( int i = 1; i < node.getChildCount(); i++ ) {
+            Token letter = (Token)node.getChildAt(i).getChildAt(0);
+            rule_name += letter.getImage();
+        }
+
+        rule_name = rule_name.replace( "-", "_" );
+
+        node.addValue( rule_name );
 
         return node;
     }
 
-    protected Node exitProduction( Production node ) throws ParseException
+    private void registerUsedMetaIdentifiers( Node node )
+    {
+        for( int i = 0; i < node.getChildCount(); i ++ ) {
+            Node child = node.getChildAt(i);
+            if( child.getName().equals( "meta_identifier" )) {
+                used_productions.put( child.getValue(0).toString(),
+                                      child );
+            } else {
+                registerUsedMetaIdentifiers( child );
+            }
+        }
+    }
+
+    protected Node exitSyntaxRule( Production node ) throws ParseException
     {
         Node rule_name_node = node.getChildAt(0);
-        Token rule_name_token = (Token)rule_name_node.getChildAt(1);
-        String rule_name = rule_name_token.getValue(0).toString();
+        String rule_name = rule_name_node.getValue(0).toString();
 
         defined_productions.put( rule_name, node );
+        registerUsedMetaIdentifiers( node );
 
         return node;
     }
 
-    private void printTerm( Node node )
+    private void printTerminalString( Node node )
     {
-        Node term_def = node.getChildAt( 0 );
+        int nchildren = node.getChildCount();
+        for( int i = 0; i < nchildren; i++ ) {
+            Node child = node.getChildAt(i);
+            String cn = child.getName();
+            if( cn.equals( "first_quote_symbol" ) ||
+                cn.equals( "second_quote_symbol" )) {
+                System.out.println( ((Token)child).getImage() );
+            }
+        }
+    }
 
-        if( term_def.getName().equals( "rule_name" )) {
-            Token rule_name_token = (Token)term_def.getChildAt( 1 );
-            System.out.print( rule_name_token.getValue(0) );
+    private void printSequence( Node node )
+    {
+        for( int i = 1; i < node.getChildCount(); i ++ ) {
+            Node child = node.getChildAt( i );
+            if( child.getName().equals( "definitions_list" )) {
+                printDefinitionsList( child );
+            }
+        }
+    }
+
+    private void printSyntacticPrimary( Node node )
+    {
+        String name = node.getName();
+
+        if( name.equals( "meta_identifier" )) {
+            System.out.print( node.getValue(0).toString() );
+        } else if( name.equals( "terminal_string" )) {
+            printTerminalString( node );
+        } else if( name.equals( "optional_sequence" )) {
+            System.out.print( "[ " );
+            printDefinitionsList( node );
+            System.out.print( " ]" );
+        } else if( name.equals( "repeated_sequence" )) {
+            System.out.print( "{ " );
+            printSequence( node );
+            System.out.print( " }" );
+        } else if( name.equals( "grouped_sequence" )) {
+            System.out.print( "( " );
+            printSequence( node );
+            System.out.print( " )" );
+        } else if( name.equals( "special_sequence" )) {
+            System.out.print( "( " );
+            printSequence( node );
+            System.out.print( " )" );
         } else {
-            String term_name = term_def.getName();
-
-            if( term_name.equals( "literal" )) {
-                Token rule_name_token = (Token)term_def.getChildAt( 0 );
-                String value = rule_name_token.getImage();
-                System.out.print( value );
-            } else if( term_name.equals( "optional" )) {
-                System.out.print( "[ " );
-                Node option_list = term_def.getChildAt( 1 );
-                printTermList( option_list );
-                System.out.print( " ]" );
-            } else if( term_name.equals( "repeated" )) {
-                System.out.print( "{ " );
-                Node option_list = term_def.getChildAt( 1 );
-                printTermList( option_list );
-                System.out.print( " }" );
-            } else if( term_name.equals( "group" )) {
-                System.out.print( "( " );
-                Node option_list = term_def.getChildAt( 1 );
-                printTermList( option_list );
-                System.out.print( " )" );
-            } else {
-                System.out.print( "UNKNOWN-TERM-" + term_name );
-            }
+            System.out.print( "UNKNOWN-TERM-" + node.getName() );
         }
-        if( node.getChildCount() > 1 ) {
-            Token repetition = (Token)node.getChildAt( 1 );
-            String text = repetition.getImage();
-            if( text.equals( "+" ) || text.equals( "*" )) {
-                System.out.print( text );
+    }
+
+    private void printSyntacticFactor( Node node )
+    {
+        Boolean reported = false;
+        for( int i = 0; i < node.getChildCount(); i ++ ) {
+            Node child = node.getChildAt(i);
+            if( child.getName().equals( "syntactic_primary" )) {
+                printSyntacticPrimary( child.getChildAt(0) );
             } else {
-                System.out.print( "UNKNOWN-REPETITION_CHAR-" + text );
+                if( !reported ) {
+                    System.err.print( "NOTE, repetition counts " +
+                                      "are not (yet) supported in " +
+                                      "Grammatica" );
+                    reported = true;
+                }
             }
         }
     }
 
-    private void printTermList( Node node )
+    private void printSyntacticTerm( Node node )
     {
-        Node term = node.getChildAt( 0 );
-        printTerm( term );
-        if( node.getChildCount() > 1 ) {
-            System.out.print( " " );
-            Node tail_list = node.getChildAt( 1 );
-            printTermList( tail_list );
+        for( int i = 0; i < node.getChildCount(); i ++ ) {
+            Node child = node.getChildAt(i);
+            if( child.getName().equals( "syntactic_factor" )) {
+                printSyntacticFactor( child );
+            } else if( child.getName().equals( "except_symbol" )) {
+                System.err.print( "NOTE, syntactic exceptions " +
+                                  "are not (yet) supported in " +
+                                  "Grammatica" );
+            }
         }
     }
 
-    private void printExpression( Node node )
+    private void printSingleDefinition( Node node )
     {
-        Node term_list = node.getChildAt( 0 );
-        printTermList( term_list );
-        if( node.getChildCount() > 1 ) {
-            System.out.print( " | " );
-            Node tail_expression = node.getChildAt( 2 );
-            printExpression( tail_expression );
+        for( int i = 0; i < node.getChildCount(); i ++ ) {
+            Node child = node.getChildAt(i);
+            if( child.getName().equals( "syntactic_term" )) {
+                printSyntacticTerm( child );
+            } else if( child.getName().equals( "concatenate_symbol" )) {
+                System.out.print( " " );
+            }
+        }        
+    }
+
+    private void printDefinitionsList( Node node )
+    {
+        for( int i = 0; i < node.getChildCount(); i ++ ) {
+            Node child = node.getChildAt(i);
+            if( child.getName().equals( "single_definition" )) {
+                printSingleDefinition( child );
+            } else if( child.getName().equals( "definitions_list" )) {
+                printDefinitionsList( child );
+            }
         }
     }
 
-    private void printProduction( Node node )
+    private void printSyntaxRule( Node node )
     {
-        Node rule_expr = node.getChildAt(2);
-        Node rule_name_node = node.getChildAt(0);
-        Token rule_name_token = (Token)rule_name_node.getChildAt(1);
-
-        System.out.print( rule_name_token.getValue(0) + " = " );
-
-        printExpression( rule_expr );
+        for( int i = 0; i < node.getChildCount(); i ++ ) {
+            Node child = node.getChildAt(i);
+            if( child.getName().equals( "meta_identifier" )) {
+                String rule_name = child.getValue(0).toString();
+                System.out.print( rule_name + " " );
+            } else if( child.getName().equals( "defining_symbol" )) {
+                System.out.print( "= " );
+            } else if( child.getName().equals( "definitions_list" )) {
+                printDefinitionsList( child );
+            }
+        }
 
         System.out.println( ";" );
     }
 
-    private void printProductions( Node node, String prefix )
+    private void printRules( Node node, String prefix )
     {
-        int children_count = node.getChildCount();
+        Node syntax = node.getChildAt(0);
+
+        int children_count = syntax.getChildCount();
         for( int i = 0; i < children_count; i++ ) {
-            Node child = node.getChildAt( i );
-            if( child.getName().equals( "production" )) {
-                printProduction( child );
-            } else
-                if( child.getName().equals( "production_list" )) {
-                    printProductions( child, prefix );
-                }
+            Node child = syntax.getChildAt( i );
+            if( child.getName().equals( "syntax_rule" )) {
+                printSyntaxRule( child );
+            }
         }
     }
 
@@ -191,7 +253,7 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
         for( String production_name : productions ) {
             if( !defined_productions.containsKey( production_name )) {
                 System.err.println( "ERROR, the grammar uses but does not " +
-                                    "define production '" +
+                                    "define rule '" +
                                     production_name + "'" );
                 this.error_count ++;
             }
@@ -205,7 +267,7 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
         System.out.println( "\n%tokens%" );
         this.printTokens();
         System.out.println( "\n%productions%" );
-        this.printProductions( node, "" );
+        this.printRules( node, "" );
         this.checkDefinedProductions();
         return null;
     }
