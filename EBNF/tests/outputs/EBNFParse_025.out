@@ -1,0 +1,4 @@
+Exception in thread "main" net.percederberg.grammatica.parser.ParserLogException: unexpected token "r" <letter>, expected <terminator_symbol>, on line 1 column: 27
+	at net.percederberg.grammatica.parser.Parser.parse(Parser.java:382)
+	at EBNFParse.main(EBNFParse.java:18)
+Parse error

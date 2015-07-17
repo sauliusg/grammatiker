@@ -1,0 +1,2 @@
+rule1 = "qoo-qoo" | "kva" rule2 ;
+rule1 = "qoo-qoo" | rule1 rule2 ;
