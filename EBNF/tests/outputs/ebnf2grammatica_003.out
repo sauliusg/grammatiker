@@ -1,0 +1,11 @@
+%header%
+GRAMMARTYPE = "LL"
+
+%tokens%
+TOKEN_0 = "0"
+TOKEN_1 = "1"
+
+%productions%
+number = 10 * digit;
+digit = "0" | "1";
+OK

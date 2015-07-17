@@ -233,7 +233,7 @@ class EBNF2GrammaticaConverter extends EBNFAnalyzer {
                 if( child.getName().equals( "integer" )) {
                     // System.out.print( " /* " );
                     comment_started = true;
-                    System.out.print( (int)child.getValue(0) );
+                    System.out.print( child.getValue(0).toString() );
                     System.out.print( " * " );
                 }
             }
