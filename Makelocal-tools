@@ -1,0 +1,30 @@
+# --*- Makefile -*-------------------------------------------------------------
+#$Author$
+#$Date$ 
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+
+OS_NAME := $(shell lsb_release -si)
+OS_VERS := $(shell lsb_release -sr)
+
+OS_RELEASE = ${OS_NAME}-${OS_VERS}
+
+.PHONY: tools dependencies
+
+tools: dependencies
+	${MAKE} -C BNF tests
+	${MAKE} -C EBNF tests
+
+dependencies:
+	@cd grammatiker/; \
+	if [ -x ./dependencies/${OS_RELEASE}/install.sh ]; \
+	then \
+		( set -x; sh -x ./dependencies/${OS_RELEASE}/install.sh ) \
+	elif [ -x ./dependencies/${OS_NAME}/install.sh ]; \
+	then \
+		( set -x; sh -x ./dependencies/${OS_NAME}/install.sh ) \
+	else \
+		echo "Could not find dependency scripts for '${OS_RELEASE}'" >&2; \
+		exit 1; \
+	fi
