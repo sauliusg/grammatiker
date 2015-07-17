@@ -27,3 +27,13 @@ dependencies: ${INSTALL_DEPENDENCY_LOGS}
 
 ${DEPENDENCY_DIR}/%.log: ${DEPENDENCY_DIR}/%.sh
 	sh -x $< 2>&1 | tee $@
+
+.PHONY: clean distclean cleanAll depclean
+
+clean distclean cleanAll: depclean
+
+depclean :
+	if [ ! -f ${INSTALL_DEPENDENCY_LOGS}~ -a -f ${INSTALL_DEPENDENCY_LOGS} ]; then \
+		mv -f ${INSTALL_DEPENDENCY_LOGS} ${INSTALL_DEPENDENCY_LOGS}~; \
+	fi
+	rm -f ${INSTALL_DEPENDENCY_LOGS}
