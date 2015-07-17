@@ -8,7 +8,14 @@
 OS_NAME := $(shell lsb_release -si)
 OS_VERS := $(shell lsb_release -sr)
 
-OS_RELEASE = ${OS_NAME}-${OS_VERS}
+DEPENDENCY_DIR = dependencies
+
+OS_RELEASE := $(shell \
+	if [ -f ${DEPENDENCY_DIR}/${OS_NAME}-${OS_VERS}/install.sh ]; \
+	then echo ${OS_NAME}-${OS_VERS}; else echo ${OS_NAME}; fi)
+
+INSTALL_DEPENDENCY_SCRIPTS = ${DEPENDENCY_DIR}/${OS_RELEASE}/install.sh
+INSTALL_DEPENDENCY_LOGS    = ${INSTALL_DEPENDENCY_SCRIPTS:%.sh=%.log}
 
 .PHONY: tools dependencies
 
@@ -16,15 +23,7 @@ tools: dependencies
 	${MAKE} -C BNF tests
 	${MAKE} -C EBNF tests
 
-dependencies:
-	@cd grammatiker/; \
-	if [ -x ./dependencies/${OS_RELEASE}/install.sh ]; \
-	then \
-		( set -x; sh -x ./dependencies/${OS_RELEASE}/install.sh ) \
-	elif [ -x ./dependencies/${OS_NAME}/install.sh ]; \
-	then \
-		( set -x; sh -x ./dependencies/${OS_NAME}/install.sh ) \
-	else \
-		echo "Could not find dependency scripts for '${OS_RELEASE}'" >&2; \
-		exit 1; \
-	fi
+dependencies: ${INSTALL_DEPENDENCY_LOGS}
+
+${DEPENDENCY_DIR}/%.log: ${DEPENDENCY_DIR}/%.sh
+	sh -x $< 2>&1 | tee $@
