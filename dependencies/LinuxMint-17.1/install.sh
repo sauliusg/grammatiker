@@ -1,5 +1,7 @@
 #! /bin/sh
 
+set -ue
+
 BASE_DIR=$(dirname $(dirname $(dirname $0)))
 TOOL_DIR=${BASE_DIR}/tools
 
