@@ -1,5 +1,7 @@
 #! /bin/sh
 
+set -ue
+
 sudo apt-get install -y ant
 sudo apt-get install -y default-jdk
 
