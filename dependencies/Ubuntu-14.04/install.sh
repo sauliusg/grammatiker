@@ -10,8 +10,8 @@ TOOL_DIR=${BASE_DIR}/tools
 
 ## echo ${TOOL_DIR}
 
-GRAMMATICA_SRV=http://grammatica.percederberg.net
-GRAMMATICA_URL=${GRAMMATICA_SRV}/download/stable/1.6/grammatica-1.6.zip
+GRAMMATICA_SRV=https://github.com/cederberg/grammatica/releases
+GRAMMATICA_URL=${GRAMMATICA_SRV}/download/v1.6/grammatica-1.6.zip
 GRAMMATICA_ZIP=$(basename ${GRAMMATICA_URL})
 
 if [ ! -f ${TOOL_DIR}/${GRAMMATICA_ZIP} ]
