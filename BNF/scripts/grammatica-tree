@@ -6,11 +6,15 @@
 #$URL$
 #------------------------------------------------------------------------------
 
-# Run a Grammatica-based BNF parser and report syntax errors. Return
-# 0 on success, error code on failure.
+# Run a Grammatica-based parser of a 'language', generated on-the-fly
+# from the 'language.grammatica' grammar.
+#
+# A given input file written in 'language' ('input-file.language') is
+# processed and syntax errors are reported. Returns 0 on success,
+# error code on failure.
 
 # USAGE:
-#    $0 BNF.grammatica input-grammar.bnf
+#    $0 language.grammatica input-file.language
 
 SCRPDIR=$(dirname $0)
 BASEDIR=$(dirname ${SCRPDIR})
