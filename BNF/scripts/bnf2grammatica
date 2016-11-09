@@ -11,6 +11,7 @@
 # generator by Grammatica.
 
 # USAGE:
+#    $0 input-bnf.txt
 #    $0 < input-bnf.txt
 
 SCRPDIR=$(dirname $0)
