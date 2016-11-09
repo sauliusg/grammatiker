@@ -16,7 +16,7 @@ endif
 
 SRC_DIR = .
 GEN_DIR = generated
-TOOL_DIR = tools
+TOOL_DIR = $(shell if [ -e lib ]; then echo lib; else echo tools; fi)
 SCRIPT_DIR = scripts
 
 GRAMMARS = $(wildcard *.grammar)
