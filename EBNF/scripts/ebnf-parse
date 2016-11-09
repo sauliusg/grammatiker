@@ -10,6 +10,7 @@
 # 0 on success, error code on failure.
 
 # USAGE:
+#    $0 input-ebnf.txt
 #    $0 < input-ebnf.txt
 
 SCRPDIR=$(dirname $0)
