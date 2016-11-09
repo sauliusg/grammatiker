@@ -15,13 +15,13 @@
 
 SCRPDIR=$(dirname $0)
 BASEDIR=$(dirname ${SCRPDIR})
-LIB_DIR=${BASEDIR}/lib/bnf
+LIB_DIR=${BASEDIR}/lib
 
-if [ -d "${BASEDIR}/tools/" ]
+if [ -d "${LIB_DIR}" ]
 then
-    TOOL_DIR=${BASEDIR}/tools
-else
     TOOL_DIR=${LIB_DIR}
+else
+    TOOL_DIR=${BASEDIR}/tools
 fi
 
 GRAMMATICA_JAR=$(find "${TOOL_DIR}/" -name "grammatica*.jar" | head -1)
