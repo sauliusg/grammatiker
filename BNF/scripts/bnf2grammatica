@@ -18,7 +18,7 @@ SCRPDIR=$(dirname $0)
 BASEDIR=$(dirname ${SCRPDIR})
 LIB_DIR=${BASEDIR}/lib
 
-if [ -d "${LIB_DIR}" ]
+if [ -e "${LIB_DIR}" ]
 then
     TOOL_DIR=${LIB_DIR}
 else
