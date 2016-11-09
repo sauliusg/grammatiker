@@ -34,9 +34,12 @@ JFILES = ${JSOURCES} ${GJAVA}
 CFILES = ${JFILES:%.java=%.class}
 
 # Grammatica installation:
-GRAMMATICA_JAR := $(shell find ${TOOL_DIR}/ -name grammatica\*.jar | sort | head -n 1)
+GRAMMATICA_JARS := $(shell find ${TOOL_DIR}/ -name \*.jar | sort | tr "\n" ":")
 
-CLASSPATH := $(shell find ${TOOL_DIR}/ -name \*.jar | tr "\n" ":")${GEN_DIR}:${SRC_DIR}:${CLASSPATH}
+JARDIR = $(firstword $(dir $(subst :, ,${GRAMMATICA_JARS})))
+GRAMMATICA_JAR = $(filter ${JARDIR}grammatica%.jar,$(subst :, ,${GRAMMATICA_JARS}))
+
+CLASSPATH := ${GRAMMATICA_JARS}generated:${SRC_DIR}:${CLASSPATH}
 
 export CLASSPATH
 
