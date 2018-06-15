@@ -2,6 +2,7 @@
 
 TRUNK    ?= ^/trunk
 BRANCHES ?= ^/branches
+RELEASES ?= ${BRANCHES}
 
 .PHONY: release major minor patch
 
@@ -28,7 +29,7 @@ release:
 	svn ci
 	perl -lpi -e 's/\(unreleased\)/(${VERSION})/ if $$. == 1' CHANGELOG
 	svn ci -m "CHANGELOG: switching from 'unreleased' to '${VERSION}'"
-	svn cp ^/trunk ^/branches/release/v${VERSION} \
+	svn cp ^/trunk ^/branches/v${VERSION} \
 	   -m "Preparing version ${VERSION} for release in the release branch."
 	${MAKE} minor
 	echo "smiles-scripts (unreleased)\n\n  * ...\n" | cat - CHANGELOG > CHANGELOG.$$.tmp; \
