@@ -10,8 +10,6 @@ VFILE = .version
 
 VERSION := $(shell grep -v "^\#" ${VFILE})
 
-all tests test:
-
 version.h: version.hin ${VFILE}
 	sed 's/@VERSION@/${VERSION}/' $< > $@
 
