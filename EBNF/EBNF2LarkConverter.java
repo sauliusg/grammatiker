@@ -295,7 +295,7 @@ class EBNF2LarkConverter extends EBNFAnalyzer {
                 String rule_name = child.getValue(0).toString();
                 System.out.print( rule_name + " " );
             } else if( child.getName().equals( "defining_symbol" )) {
-                System.out.print( "= " );
+                System.out.print( ": " );
             } else if( child.getName().equals( "definitions_list" )) {
                 printDefinitionsList( child );
             }
