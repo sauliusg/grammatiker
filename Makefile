@@ -12,8 +12,9 @@ include ${MAKECONF_FILES}
 endif
 
 # A Makeconfig file might contain a line like the following one:
-# FIRST = f2mtz/
-#
+
+FIRST = BNF/
+
 # The recursive Makefile will first descend to directories mentioned
 # in ${FIRST}, and then into all the rest alphabetically:
 
