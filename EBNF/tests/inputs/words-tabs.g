@@ -1,0 +1,67 @@
+%header%
+GRAMMARTYPE = "LL"
+
+%tokens%
+TOKEN_0 = ' '
+TOKEN_1 = 'A'
+TOKEN_2 = 'B'
+TOKEN_3 = 'C'
+TOKEN_4 = 'D'
+TOKEN_5 = 'E'
+TOKEN_6 = 'F'
+TOKEN_7 = 'G'
+TOKEN_8 = 'H'
+TOKEN_9 = 'I'
+TOKEN_10 = 'J'
+TOKEN_11 = 'K'
+TOKEN_12 = 'L'
+TOKEN_13 = 'M'
+TOKEN_14 = 'N'
+TOKEN_15 = 'O'
+TOKEN_16 = 'P'
+TOKEN_17 = 'Q'
+TOKEN_18 = 'R'
+TOKEN_19 = 'S'
+TOKEN_20 = 'T'
+TOKEN_21 = 'U'
+TOKEN_22 = 'V'
+TOKEN_23 = 'W'
+TOKEN_24 = 'X'
+TOKEN_25 = 'Y'
+TOKEN_26 = 'Z'
+TOKEN_27 = '_'
+TOKEN_28 = 'a'
+TOKEN_29 = 'b'
+TOKEN_30 = 'c'
+TOKEN_31 = 'd'
+TOKEN_32 = 'e'
+TOKEN_33 = 'f'
+TOKEN_34 = 'g'
+TOKEN_35 = 'h'
+TOKEN_36 = 'i'
+TOKEN_37 = 'j'
+TOKEN_38 = 'k'
+TOKEN_39 = 'l'
+TOKEN_40 = 'm'
+TOKEN_41 = 'n'
+TOKEN_42 = 'o'
+TOKEN_43 = 'p'
+TOKEN_44 = 'q'
+TOKEN_45 = 'r'
+TOKEN_46 = 's'
+TOKEN_47 = 't'
+TOKEN_48 = 'u'
+TOKEN_49 = 'v'
+TOKEN_50 = 'w'
+TOKEN_51 = 'x'
+TOKEN_52 = 'y'
+TOKEN_53 = 'z'
+SPECIAL_0 = <<\t>>
+
+%productions%
+sentence = word { spaces [ word ] };
+word = letter { letter };
+tab = SPECIAL_0;
+space = ' ' | tab;
+spaces = space { spaces };
+letter = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | '_';

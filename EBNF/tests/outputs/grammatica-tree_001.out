@@ -1,0 +1,29 @@
+Parse tree from tests/inputs/tab-separated-words.txt:
+sentence(2001)
+  word(2002)
+    letter(2006)
+      TOKEN_50(1051): "w", line: 1, col: 1
+    letter(2006)
+      TOKEN_42(1043): "o", line: 1, col: 2
+    letter(2006)
+      TOKEN_45(1046): "r", line: 1, col: 3
+    letter(2006)
+      TOKEN_31(1032): "d", line: 1, col: 4
+    letter(2006)
+      TOKEN_1(1002): "A", line: 1, col: 5
+  spaces(2005)
+    space(2004)
+      tab(2003)
+        SPECIAL_0(1055): "(...)", line: 1, col: 6
+  word(2002)
+    letter(2006)
+      TOKEN_50(1051): "w", line: 1, col: 7
+    letter(2006)
+      TOKEN_42(1043): "o", line: 1, col: 8
+    letter(2006)
+      TOKEN_45(1046): "r", line: 1, col: 9
+    letter(2006)
+      TOKEN_31(1032): "d", line: 1, col: 10
+    letter(2006)
+      TOKEN_2(1003): "B", line: 1, col: 11
+OK
