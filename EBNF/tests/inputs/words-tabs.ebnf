@@ -8,7 +8,7 @@ tab = ? \t ? ;
 
 space = ' ' | tab ;
 
-spaces = space, {spaces};
+spaces = space, {space};
 
 letter =
     'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' |
