@@ -307,11 +307,24 @@ class EBNF2LarkConverter extends EBNFAnalyzer {
     private void printRules( Node node, String prefix )
     {
         Node syntax = node.getChildAt(0);
+        boolean start_printed = false;
 
         int children_count = syntax.getChildCount();
         for( int i = 0; i < children_count; i++ ) {
             Node child = syntax.getChildAt( i );
             if( child.getName().equals( "syntax_rule" )) {
+                if( !start_printed ) {
+                    System.out.print( "start: " );
+                    for( int j = 0; j < child.getChildCount(); j ++ ) {
+                        Node rule_symbol = child.getChildAt(j);
+                        if( rule_symbol.getName().equals( "meta_identifier" )) {
+                            String rule_name = rule_symbol.getValue(0).toString();
+                            System.out.println( rule_name );
+                            break;
+                        }
+                    }
+                    start_printed = true;
+                }
                 printSyntaxRule( child );
             }
         }
@@ -353,8 +366,8 @@ class EBNF2LarkConverter extends EBNFAnalyzer {
 
     protected Node exitEbnf( Production node ) throws ParseException
     {
-        this.printTokens();
         this.printRules( node, "" );
+        this.printTokens();
         this.checkDefinedProductions();
         return null;
     }
