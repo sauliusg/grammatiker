@@ -7,6 +7,10 @@ sudo apt-get install -y ant-contrib
 sudo apt-get install -y junit
 sudo apt-get install -y default-jdk
 
+# For testing Python Lark parsers:
+
+sudo apt-get install -y virtualenv
+
 BASE_DIR=$(dirname $(dirname $(dirname $0)))
 TOOL_DIR=${BASE_DIR}/tools
 
@@ -40,3 +44,10 @@ else
     echo "$0: ${TOOL_DIR}/${GRAMMATICA_ZIP} is already downloaded -" \
         "will not replace it"
 fi
+
+# Install Python into virtualenv, and install Lark parser there:
+
+virtualenv EBNF/virt
+
+EBNF/virt/bin/pip install lark
+EBNF/virt/bin/pip install lark-parser
