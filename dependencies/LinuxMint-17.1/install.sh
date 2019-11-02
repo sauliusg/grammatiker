@@ -2,6 +2,11 @@
 
 set -ue
 
+sudo apt-get install -y ant
+sudo apt-get install -y ant-contrib
+sudo apt-get install -y junit
+sudo apt-get install -y default-jdk
+
 BASE_DIR=$(dirname $(dirname $(dirname $0)))
 TOOL_DIR=${BASE_DIR}/tools
 
