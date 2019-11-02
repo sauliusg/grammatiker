@@ -193,9 +193,9 @@ class EBNF2LarkConverter extends EBNFAnalyzer {
             printDefinitionsList( node );
             System.out.print( " ]" );
         } else if( name.equals( "repeated_sequence" )) {
-            System.out.print( "{ " );
+            System.out.print( "( " );
             printSequence( node );
-            System.out.print( " }" );
+            System.out.print( " )*" );
         } else if( name.equals( "grouped_sequence" )) {
             System.out.print( "( " );
             printSequence( node );
@@ -301,7 +301,7 @@ class EBNF2LarkConverter extends EBNFAnalyzer {
             }
         }
 
-        System.out.println( ";" );
+        System.out.println();
     }
 
     private void printRules( Node node, String prefix )
@@ -327,9 +327,9 @@ class EBNF2LarkConverter extends EBNFAnalyzer {
         int token_nr = 0;
         for( String token : tokens ) {
             if( toknames.containsKey( token )) {
-                System.out.println( toknames.get( token ) + " = " + token );
+                System.out.println( toknames.get( token ) + ": " + token );
             } else {
-                System.out.println( "TOKEN_" + token_nr++ + " = " + token );
+                System.out.println( "TOKEN_" + token_nr++ + ": " + token );
             }
         }
     }
@@ -353,11 +353,7 @@ class EBNF2LarkConverter extends EBNFAnalyzer {
 
     protected Node exitEbnf( Production node ) throws ParseException
     {
-        System.out.println( "%header%" );
-        System.out.println( "GRAMMARTYPE = \"LL\"" );
-        System.out.println( "\n%tokens%" );
         this.printTokens();
-        System.out.println( "\n%productions%" );
         this.printRules( node, "" );
         this.checkDefinedProductions();
         return null;
