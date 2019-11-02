@@ -1,0 +1,40 @@
+#! /bin/sh
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+
+# Run a Lark-based parser of a 'language', generated on-the-fly
+# from the 'language.grammatica' grammar.
+#
+# A given input file written in 'language' ('input-file.language') is
+# processed and syntax errors are reported. Returns 0 on success,
+# error code on failure.
+
+# USAGE:
+#    $0 language.lark input-file.language
+
+SCRPDIR=$(dirname $0)
+BASEDIR=$(dirname ${SCRPDIR})
+LIB_DIR=${BASEDIR}/virt
+
+PYTHON=${LIB_DIR}/bin/python
+
+GRAMMAR="$1"
+
+shift
+
+for FILE in ${1+"$@"}
+do
+     ${PYTHON} <<EOF
+from lark import Lark
+file = open("${GRAMMAR}")
+grammar = file.read()
+parser = Lark( grammar );
+
+text = open("${FILE}")
+print( parser.parse(text.read()).pretty() )
+EOF
+done

@@ -1,0 +1,11 @@
+start
+  ternary_number
+    sign
+    digit
+    digit
+    digit
+    digit
+    digit
+    digit
+
+OK
