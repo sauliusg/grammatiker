@@ -1,7 +1,7 @@
 #---*- Makefile -*-------------------------------------------------------
-#$Author: saulius $
-#$Date: 2019-03-10 15:46:09 +0200 (Sun, 10 Mar 2019) $
-#$Revision: 198 $
+#$Author: vantanas $
+#$Date: 2020-01-23 16:02:01 +0200 (Thu, 23 Jan 2020) $
+#$Revision: 239 $
 #$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makelocal-version-svn $
 #------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ BRANCHES ?= ^/branches
 RELEASES ?= ${BRANCHES}
 PKG_NAME ?= $(shell pwd | xargs dirname | xargs basename)
 
-SVN_VERSION_KEYWORDS ?= WIP $$Revision: 198 $$ $$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makelocal-version-svn $$
+SVN_VERSION_KEYWORDS ?= WIP $$Revision: 239 $$ $$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makelocal-version-svn $$
 
 .PHONY: release major minor patch
 
@@ -31,7 +31,7 @@ version.h: version.hin ${VFILE}
 %/Version.pm: %/Version.pmin ${VFILE}
 	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
 
-%/package-version: %/package-version.in
+%/package-version: %/package-version.in ${VFILE}
 	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
 	chmod 755 $@
 
