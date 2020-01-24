@@ -1,74 +1,52 @@
-#---*- Makefile -*-------------------------------------------------------
-#$Author: saulius $
-#$Date: 2019-03-10 15:46:09 +0200 (Sun, 10 Mar 2019) $
-#$Revision: 198 $
-#$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makelocal-version-svn $
-#------------------------------------------------------------------------
+#--*- Makefile -*--
 
 TRUNK    ?= ^/trunk
 BRANCHES ?= ^/branches
 RELEASES ?= ${BRANCHES}
-PKG_NAME ?= $(shell pwd | xargs dirname | xargs basename)
-
-SVN_VERSION_KEYWORDS ?= WIP $$Revision: 198 $$ $$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makelocal-version-svn $$
 
 .PHONY: release major minor patch
 
-VFILE ?= .version
+VFILE = .version
 
-VERSION_PM ?= lib/perl5/Version.pm
-
-.PRECIOUS: ${VERSION_PM}
-
-REPORTED_VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$0}' | sed 's/\$$//g; s/  */ /g')
-VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$1}' )
-
-## all tests test: lib/Version.slib
+VERSION := $(shell grep -v "^\#" ${VFILE})
 
 version.h: version.hin ${VFILE}
-	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
+	sed 's/@VERSION@/${VERSION}/' $< > $@
 
-%/Version.pm: %/Version.pmin ${VFILE}
-	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
+lib/perl5/Version.pm: lib/perl5/Version.pmin ${VFILE}
+	sed 's/@VERSION@/${VERSION}/' $< > $@
 
-%/package-version: %/package-version.in
-	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
+scripts/package-version: scripts/package-version.in
+	sed 's/@VERSION@/${VERSION}/' $< > $@
 	chmod 755 $@
 
-%/Version.slib: %/Version.sin ${VFILE}
-	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
+lib/Version.slib: lib/Version.sin ${VFILE}
+	sed 's/@VERSION@/${VERSION}/' $< > $@
 
 release:
 	svn ci
 	perl -lpi -e 's/\(unreleased\)/(${VERSION})/ if $$. == 1' CHANGELOG
-	perl -lpi -e 's/\.\.\./${PKG_NAME}/ if $$. == 1' CHANGELOG
-	awk '/^#/{print} !/^#/{print $$1}' ${VFILE} > ${VFILE}.$$$$; \
-	mv -f ${VFILE}.$$$$ ${VFILE}
 	svn ci -m "CHANGELOG: switching from 'unreleased' to '${VERSION}'"
-	svn cp ${TRUNK} ${RELEASES}/v${VERSION} \
+	svn cp ^/trunk ^/branches/v${VERSION} \
 	   -m "Preparing version ${VERSION} for release in the release branch."
 	${MAKE} minor
-	echo "${PKG_NAME} (unreleased)\n\n  * ...\n" | cat - CHANGELOG \
-		> CHANGELOG.$$$$.tmp; \
-	mv -f CHANGELOG.$$$$.tmp CHANGELOG
-	awk '/^#/{print} !/^#/{print $$1, "${SVN_VERSION_KEYWORDS}"}' ${VFILE} \
-		> ${VFILE}.$$$$; \
-	mv -f ${VFILE}.$$$$ ${VFILE}
+	echo "smiles-scripts (unreleased)\n\n  * ...\n" | cat - CHANGELOG > CHANGELOG.$$.tmp; \
+	mv -f CHANGELOG.$$.tmp CHANGELOG
 
 major:
-	awk -F. '/^#/{print} !/^#/{print $$1+1 ".0" ".0", "${SVN_VERSION_KEYWORDS}"}' \
+	awk -F. '/^#/{print} !/^#/{print $$1+1 ".0" ".0"}' \
 		${VFILE} > ${VFILE}.$$$$; \
 	cat ${VFILE}.$$$$ > ${VFILE}; \
 	rm -f ${VFILE}.$$$$
 
 minor:
-	awk -F. '/^#/{print} !/^#/{print $$1 "." $$2+1 ".0", "${SVN_VERSION_KEYWORDS}"}' \
+	awk -F. '/^#/{print} !/^#/{print $$1 "." $$2+1 ".0"}' \
 		${VFILE} > ${VFILE}.$$$$; \
 	cat ${VFILE}.$$$$ > ${VFILE}; \
 	rm -f ${VFILE}.$$$$
 
 patch:
-	awk -F. '/^#/{print} !/^#/{print $$1 "." $$2 "." $$3+1, "${SVN_VERSION_KEYWORDS}"}' \
+	awk -F. '/^#/{print} !/^#/{print $$1 "." $$2 "." $$3+1}' \
 		${VFILE} > ${VFILE}.$$$$; \
 	cat ${VFILE}.$$$$ > ${VFILE}; \
 	rm -f ${VFILE}.$$$$
@@ -76,4 +54,6 @@ patch:
 cleanAll distclean: clean-version
 
 clean-version:
-	rm -f ${VERSION_PM}
+	rm -f version.h
+	rm -f src/lib/perl5/COD/ToolsVersion.pm scripts/cod-tools-version
+	rm -f scripts/.cod-tools-version.d
