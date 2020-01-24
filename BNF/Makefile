@@ -82,7 +82,7 @@ ${GEN_DIR}/%Tokenizer.java: ${GEN_DIR}/%Analyzer.java
 TEST_DIR     = tests/cases
 TST_OUT_DIR  = tests/outputs
 
-TEST_FILES   = $(sort $(wildcard ${TEST_DIR}/*.sh))
+TEST_FILES   = $(wildcard ${TEST_DIR}/*.sh)
 TEST_OUTPUTS = ${TEST_FILES:${TEST_DIR}/%.sh=${TST_OUT_DIR}/%.out}
 TEST_DIFFS   = ${TEST_FILES:${TEST_DIR}/%.sh=${TST_OUT_DIR}/%.diff}
 
