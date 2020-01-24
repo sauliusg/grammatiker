@@ -2,6 +2,13 @@ grammatiker (unreleased)
 
   * ...
 
+grammatiker (0.2.0)
+
+   * Fixed:
+      - Patching Java code version in the Grammatica 'build.xml' file so
+	that it correctly compiles with the newer Java compilers
+	(e.g. openjdk version "11.0.5" on Ubuntu-18.04).
+
 grammatiker (0.1.0)
 
   * Initial release.
