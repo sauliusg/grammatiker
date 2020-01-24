@@ -9,6 +9,11 @@ grammatiker (0.2.0)
 	always performed and listed in the same order, using alphabetic
 	sort on test case names.
 
+      - Adding 'ant-contrib' and 'junit' packages to the dependency
+	installation scripts for Ubuntu-14.04; adding thos two and also
+	'ant' and 'default-jdk' to the dependency installation scripts for
+	LinuxMint-17.1.
+
 grammatiker (0.1.0)
 
   * Initial release.
