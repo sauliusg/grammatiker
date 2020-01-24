@@ -5,6 +5,10 @@ grammatiker (0.2.0)
 	that it correctly compiles with the newer Java compilers
 	(e.g. openjdk version "11.0.5" on Ubuntu-18.04).
 
+      - Sorting test case names before running tests; now the tests are
+	always performed and listed in the same order, using alphabetic
+	sort on test case names.
+
 grammatiker (0.1.0)
 
   * Initial release.
